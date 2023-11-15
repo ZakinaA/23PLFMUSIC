@@ -32,6 +32,9 @@ class Cours
     #[ORM\Column]
     private ?int $ageMaxi = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cours')]
+    private ?Jour $jour = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Cours
     public function setAgeMaxi(int $ageMaxi): static
     {
         $this->ageMaxi = $ageMaxi;
+
+        return $this;
+    }
+
+    public function getJour(): ?Jour
+    {
+        return $this->jour;
+    }
+
+    public function setJour(?Jour $jour): static
+    {
+        $this->jour = $jour;
 
         return $this;
     }
