@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TypeInstrumentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeInstrumentRepository::class)]
@@ -15,6 +17,17 @@ class TypeInstrument
 
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
+
+    #[ORM\ManyToOne(inversedBy: 'typeinstrument')]
+    private ?Instrument $instrument = null;
+
+    #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: ClasseInstrument::class)]
+    private Collection $classeintrument;
+
+    public function __construct()
+    {
+        $this->classeintrument = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +42,48 @@ class TypeInstrument
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getInstrument(): ?Instrument
+    {
+        return $this->instrument;
+    }
+
+    public function setInstrument(?Instrument $instrument): static
+    {
+        $this->instrument = $instrument;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClasseInstrument>
+     */
+    public function getClasseintrument(): Collection
+    {
+        return $this->classeintrument;
+    }
+
+    public function addClasseintrument(ClasseInstrument $classeintrument): static
+    {
+        if (!$this->classeintrument->contains($classeintrument)) {
+            $this->classeintrument->add($classeintrument);
+            $classeintrument->setTypeInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClasseintrument(ClasseInstrument $classeintrument): static
+    {
+        if ($this->classeintrument->removeElement($classeintrument)) {
+            // set the owning side to null (unless already changed)
+            if ($classeintrument->getTypeInstrument() === $this) {
+                $classeintrument->setTypeInstrument(null);
+            }
+        }
 
         return $this;
     }
