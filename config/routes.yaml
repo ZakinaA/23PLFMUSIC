@@ -1,3 +1,11 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+coursConsulter:
+    path: /cours/consulter/{id}
+    controller: App\Controller\CoursController::consulterCours
+
+coursLister:
+    path: /cours/lister
+    controller: App\Controller\CoursController::listerCours

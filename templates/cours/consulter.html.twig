@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter !{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon superbe menu{% endblock %}
+
+{% block body %}
+    <h5>PAGE DE CONSULTATION D'UN COURS</h5>
+    <p>
+    <table >
+        <tr><td>Id : </td><td>{{etudiant.id}} </td></tr>
+        <tr><td>Nom : </td><td>{{etudiant.nom}}</td>
+            <td  rowspan="8" class="imgEtu">
+                {% set photo = 'img/etudiant/'~ etudiant.id ~'.png' %}
+                <span class="zoom"><img src="{{ asset(photo | trans )}}" title="{{ etudiant.prenom ~ " " ~ etudiant.nom }}" alt="{{ etudiant.prenom ~ " " ~ etudiant.nom }}"/></span></td></tr> </td>
+        <tr><td>Prénom : </td><td>{{etudiant.prenom}}</td></tr></tr>
+
+        <tr><td>Date de naissance : </td><td>{{etudiant.dateNaiss|date("d/m/Y")}}</td></tr>
+        <tr><td>rue : </td><td>{{etudiant.numrue}} {{etudiant.rue}}</td></tr>
+        <tr><td>code postal : </td><td>{{etudiant.copos}}</td></tr>
+        <tr><td>ville : </td><td>{{etudiant.ville}}</td></tr>
+        <tr><td>Surnom : </td><td>{{etudiant.surnom}}</td></tr>
+
+    </table>
+{% endblock %}
+{% block javascripts %}{% endblock %}
