@@ -13,11 +13,13 @@ liste des interventions</br>
 <table>
     {% for i in pinterventions %}
         <tr>
-        <td><a href="{{ path('interventionConsulter', { 'id': i.id }) }}">{{ i.descriptif }}</a></td>
+        <td><a href="{{ path('interventionConsulter', { 'id': i.id }) }}"></a></td>
         <td>{{ i.dateDebut|date('d/m/Y') }}</td>
         <td>{{ i.dateFin|date('d/m/Y') }}</td>
         <td>{{ i.descriptif}}</td>
         <td>{{ i.prix}}</td>
+        <td>{{ i.professionnel.nom}}</td>
+        <td>{{ i.instrument.numSerie}}</td>
     {% else %}
         <tr>
             <td>Aucune intervention n'a été trouvé.</td>
