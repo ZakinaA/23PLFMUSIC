@@ -18,12 +18,24 @@ class TypeInstrument
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+
+    #[ORM\ManyToOne(inversedBy: 'typeinstrument')]
+    private ?Instrument $instrument = null;
+
+    #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: ClasseInstrument::class)]
+    private Collection $classeintrument;
+
+    public function __construct()
+    {
+        $this->classeintrument = new ArrayCollection();
+
     #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: Cours::class)]
     private Collection $cours;
 
     public function __construct()
     {
         $this->cours = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -43,6 +55,33 @@ class TypeInstrument
         return $this;
     }
 
+
+    public function getInstrument(): ?Instrument
+    {
+        return $this->instrument;
+    }
+
+    public function setInstrument(?Instrument $instrument): static
+    {
+        $this->instrument = $instrument;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ClasseInstrument>
+     */
+    public function getClasseintrument(): Collection
+    {
+        return $this->classeintrument;
+    }
+
+    public function addClasseintrument(ClasseInstrument $classeintrument): static
+    {
+        if (!$this->classeintrument->contains($classeintrument)) {
+            $this->classeintrument->add($classeintrument);
+            $classeintrument->setTypeInstrument($this);
+
     /**
      * @return Collection<int, Cours>
      */
@@ -56,6 +95,20 @@ class TypeInstrument
         if (!$this->cours->contains($cour)) {
             $this->cours->add($cour);
             $cour->setTypeInstrument($this);
+
+        }
+
+        return $this;
+    }
+
+
+  public function removeClasseintrument(ClasseInstrument $classeintrument): static
+    {
+        if ($this->classeintrument->removeElement($classeintrument)) {
+            // set the owning side to null (unless already changed)
+            if ($classeintrument->getTypeInstrument() === $this) {
+                $classeintrument->setTypeInstrument(null);
+            }
         }
 
         return $this;
@@ -67,6 +120,7 @@ class TypeInstrument
             // set the owning side to null (unless already changed)
             if ($cour->getTypeInstrument() === $this) {
                 $cour->setTypeInstrument(null);
+
             }
         }
 

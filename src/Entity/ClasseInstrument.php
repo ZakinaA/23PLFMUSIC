@@ -16,6 +16,10 @@ class ClasseInstrument
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'classeintrument')]
+    private ?TypeInstrument $typeInstrument = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -32,4 +36,19 @@ class ClasseInstrument
 
         return $this;
     }
+
+    public function getTypeInstrument(): ?TypeInstrument
+    {
+        return $this->typeInstrument;
+    }
+
+    public function setTypeInstrument(?TypeInstrument $typeInstrument): static
+    {
+        $this->typeInstrument = $typeInstrument;
+
+        return $this;
+    }
+
+
+
 }

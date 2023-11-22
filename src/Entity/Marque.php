@@ -11,10 +11,13 @@ class Marque
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id;
 
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
+
+    #[ORM\ManyToOne(inversedBy: 'marque')]
+    private ?Instrument $instrument = null;
 
     public function getId(): ?int
     {
@@ -32,4 +35,17 @@ class Marque
 
         return $this;
     }
+
+    public function getInstrument(): ?Instrument
+    {
+        return $this->instrument;
+    }
+
+    public function setInstrument(?Instrument $instrument): static
+    {
+        $this->instrument = $instrument;
+
+        return $this;
+    }
+
 }
