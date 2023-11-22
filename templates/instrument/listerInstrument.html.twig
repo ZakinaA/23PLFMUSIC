@@ -11,12 +11,24 @@
 
 LISTE DES INSTRUMENTS</br>
 <table>
-    {% for e in pInstruments %}
+
+    <th>Numéro de Série</th>
+    <th>Prix d'Achat</th>
+    <th>Date d'achat</th>
+    <th>Utilisation</th>
+    <th>Marque</th>
+
+
+
+    {% for instruments in instruments %}
         <tr>
-        <td><a href="{{ path('instrumentConsulter', { 'id': e.id }) }}">{{ e.numSerie }}</a></td>
-        <td>{{ e.prixAchat }}</a></td>
-        <td>{{ e.dateAchat|date('d/m/Y') }}</td>
-        <td>{{ e.utilisation}}</td>
+        <td><a href="{{ path('InstrumentConsulter', { 'id': instruments.id }) }}">{{ instruments.numSerie }}</a></td>
+        <td>{{ instruments.prixAchat }}</a></td>
+        <td>{{ instruments.dateAchat|date('d/m/Y') }}</td>
+        <td>{{ instruments.utilisation}}</td>
+        <td>{{ instruments.marque.libelle}}</td>
+
+
     {% else %}
         <tr>
             <td>Aucun instrument n'a été trouvé.</td>

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Marque;
+use App\Entity\TypeInstrument;
 use App\Repository\InstrumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -31,23 +33,34 @@ class Instrument
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $cheminImage = null;
 
-    #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Marque::class)]
-    private Collection $marque;
+
+
 
     #[ORM\ManyToOne(inversedBy: 'instruments')]
     private ?Accessoire $accessoire = null;
 
-    #[ORM\ManyToMany(targetEntity: Couleur::class, inversedBy: 'instruments')]
-    private Collection $couleur;
+    #[ORM\ManyToOne(inversedBy: 'instruments')]
+    private ?Marque $marque = null;
 
-    #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: TypeInstrument::class)]
-    private Collection $typeinstrument;
+    #[ORM\ManyToOne(inversedBy: 'instruments')]
+    private ?TypeInstrument $typeInstruments = null;
+
+    #[ORM\OneToMany(mappedBy: 'Instrument', targetEntity: InstrumentCouleur::class)]
+    private Collection $instrumentCouleurs;
+
+
+
+    //#[ORM\onetomany(targetEntity: Couleur::class, inversedBy: 'instruments')]
+    //private ?Couleur $couleurs = null;
+
+
 
     public function __construct()
     {
-        $this->marque = new ArrayCollection();
-        $this->couleur = new ArrayCollection();
-        $this->typeinstrument = new ArrayCollection();
+
+        $this->couleurs = new ArrayCollection();
+        $this->typeInstruments = new ArrayCollection();
+        $this->instrumentCouleurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,35 +128,15 @@ class Instrument
         return $this;
     }
 
+
+
+
     /**
      * @return Collection<int, Marque>
      */
-    public function getMarque(): Collection
-    {
-        return $this->marque;
-    }
 
-    public function addMarque(Marque $marque): static
-    {
-        if (!$this->marque->contains($marque)) {
-            $this->marque->add($marque);
-            $marque->setInstrument($this);
-        }
 
-        return $this;
-    }
 
-    public function removeMarque(Marque $marque): static
-    {
-        if ($this->marque->removeElement($marque)) {
-            // set the owning side to null (unless already changed)
-            if ($marque->getInstrument() === $this) {
-                $marque->setInstrument(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getAccessoire(): ?Accessoire
     {
@@ -157,18 +150,54 @@ class Instrument
         return $this;
     }
 
+    public function getMarque(): ?Marque
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?Marque $marque): static
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    public function getCouleurs(): ?Couleurs
+    {
+        return $this->couleurs;
+    }
+
+    public function setCouleurs(?Couleurs $couleurs): static
+    {
+        $this->couleurs = $couleurs;
+
+        return $this;
+    }
+
+    public function getTypeInstruments(): ?TypeInstruments
+    {
+        return $this->typeInstruments;
+    }
+
+    public function setTypeInstruments(?TypeInstruments $typeInstruments): static
+    {
+        $this->typeInstruments = $typeInstruments;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Couleur>
      */
     public function getCouleur(): Collection
     {
-        return $this->couleur;
+        return $this->couleurs;
     }
 
     public function addCouleur(Couleur $couleur): static
     {
-        if (!$this->couleur->contains($couleur)) {
-            $this->couleur->add($couleur);
+        if (!$this->couleurs->contains($couleur)) {
+            $this->couleurs->add($couleur);
         }
 
         return $this;
@@ -184,20 +213,6 @@ class Instrument
     /**
      * @return Collection<int, TypeInstrument>
      */
-    public function getTypeinstrument(): Collection
-    {
-        return $this->typeinstrument;
-    }
-
-    public function addTypeinstrument(TypeInstrument $typeinstrument): static
-    {
-        if (!$this->typeinstrument->contains($typeinstrument)) {
-            $this->typeinstrument->add($typeinstrument);
-            $typeinstrument->setInstrument($this);
-        }
-
-        return $this;
-    }
 
     public function removeTypeinstrument(TypeInstrument $typeinstrument): static
     {
@@ -210,4 +225,36 @@ class Instrument
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, InstrumentCouleur>
+     */
+    public function getInstrumentCouleurs(): Collection
+    {
+        return $this->instrumentCouleurs;
+    }
+
+    public function addInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
+    {
+        if (!$this->instrumentCouleurs->contains($instrumentCouleur)) {
+            $this->instrumentCouleurs->add($instrumentCouleur);
+            $instrumentCouleur->setInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
+    {
+        if ($this->instrumentCouleurs->removeElement($instrumentCouleur)) {
+            // set the owning side to null (unless already changed)
+            if ($instrumentCouleur->getInstrument() === $this) {
+                $instrumentCouleur->setInstrument(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
