@@ -1,3 +1,19 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+intervention:
+    path: /intervention/lister
+    controller: App\Controller\InterventionController::listerIntervention
+
+interventionConsulter:
+    path: /intervention/consulter/{id}
+    controller: App\Controller\InterventionController::consulterIntervention
+
+interventionAjouter:
+    path: /intervention/ajouter
+    controller: App\Controller\InterventionController::ajouterIntervention
+
+interventionModifier:
+    path: /intervention/modifier/{id}
+    controller: App\Controller\InterventionController::modifierIntervention
