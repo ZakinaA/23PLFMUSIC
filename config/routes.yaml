@@ -1,3 +1,11 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+
+listerInstrument:
+    path: /instrument/lister
+    controller: App\Controller\InstrumentController::listerInstrument
+
+InstrumentConsulter:
+        path: /instrument/consulter/{id}
+        controller: App\Controller\InstrumentController::consulterInstrument
