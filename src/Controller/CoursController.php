@@ -91,4 +91,20 @@ class CoursController extends AbstractController
             }
         }
     }
+    public function supprimerCours(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $cours = $entityManager->getRepository(Cours::class)->find($id);
+
+        if (!$cours) {
+            throw $this->createNotFoundException('Aucun cours trouvé avec le numéro '.$id);
+        }
+
+        // Suppression du cours
+        $entityManager->remove($cours);
+        $entityManager->flush();
+
+        // Redirection vers la liste des cours après suppression
+        return $this->redirectToRoute('coursLister');
+    }
 }

@@ -18,3 +18,7 @@ coursModifier:
     path: /cours/modifier/{id}
     controller: App\Controller\CoursController::modifierCours
 
+coursSupprimer:
+    path: /cours/supprimer/{id}
+    controller: App\Controller\CoursController::supprimerCours
+

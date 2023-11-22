@@ -20,6 +20,8 @@
                 <th>Type de cours</th>
                 <th>Jour</th>
                 <th>Type d'instrument</th>
+                <th>Supprimer</th>
+                <th>Modifier</th>
         </tr>
         {% for c in pLesCours %}
                 <tr>
@@ -32,6 +34,18 @@
                         <td>{{ c.typeCours.libelle }}</td>
                         <td>{{ c.jour.libelle }}</td>
                         <td>{{ c.typeInstrument.libelle }}</td>
+                        <td>
+                                <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit">Supprimer</button>
+                                </form>
+                        </td>
+                        <td>
+                                <form action="{{ path('coursModifier', {'id': c.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="UPDATE">
+                                        <button type="submit">Modifier</button>
+                                </form>
+                        </td>
                 </tr>
         {% else %}
                 <tr>
