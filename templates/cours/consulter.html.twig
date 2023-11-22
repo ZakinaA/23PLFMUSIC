@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon superbe menu{% endblock %}
+
+{% block body %}
+    <h3>PAGE DE CONSULTATION D'UN COURS</h3>
+    <p>
+    <table >
+        <tr><td>Id : </td><td>{{cours.id}} </td></tr>
+
+        <tr><td>Libelle : </td><td>{{cours.libelle}}</td>
+
+        <tr><td>Instrument appris : </td><td>{{cours.typeInstrument.libelle}}</td>
+
+        <tr><td>Nom du professeur : </td><td>{{cours.professeur.nom}}</td></tr>
+
+        <tr><td>Prenom du professeur : </td><td>{{cours.professeur.prenom}}</td></tr>
+    </table>
+
+    <h3>Élèves inscrits :</h3>
+    <ul>
+        {% for inscription in cours.inscriptions %}
+            <li>{{ inscription.eleve.nom }} {{ inscription.eleve.prenom }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

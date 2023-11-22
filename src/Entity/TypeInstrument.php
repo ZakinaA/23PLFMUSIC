@@ -18,6 +18,7 @@ class TypeInstrument
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'typeinstrument')]
     private ?Instrument $instrument = null;
 
@@ -27,6 +28,14 @@ class TypeInstrument
     public function __construct()
     {
         $this->classeintrument = new ArrayCollection();
+
+    #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: Cours::class)]
+    private Collection $cours;
+
+    public function __construct()
+    {
+        $this->cours = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -45,6 +54,7 @@ class TypeInstrument
 
         return $this;
     }
+
 
     public function getInstrument(): ?Instrument
     {
@@ -71,17 +81,46 @@ class TypeInstrument
         if (!$this->classeintrument->contains($classeintrument)) {
             $this->classeintrument->add($classeintrument);
             $classeintrument->setTypeInstrument($this);
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setTypeInstrument($this);
+
         }
 
         return $this;
     }
 
-    public function removeClasseintrument(ClasseInstrument $classeintrument): static
+
+  public function removeClasseintrument(ClasseInstrument $classeintrument): static
     {
         if ($this->classeintrument->removeElement($classeintrument)) {
             // set the owning side to null (unless already changed)
             if ($classeintrument->getTypeInstrument() === $this) {
                 $classeintrument->setTypeInstrument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getTypeInstrument() === $this) {
+                $cour->setTypeInstrument(null);
+
             }
         }
 
