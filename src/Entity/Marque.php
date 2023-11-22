@@ -11,7 +11,7 @@ class Marque
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private $id;
 
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
@@ -47,4 +47,5 @@ class Marque
 
         return $this;
     }
+
 }
