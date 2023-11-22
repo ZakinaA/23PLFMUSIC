@@ -9,3 +9,16 @@ coursConsulter:
 coursLister:
     path: /cours/lister
     controller: App\Controller\CoursController::listerCours
+
+coursAjouter:
+    path: /cours/ajouter
+    controller: App\Controller\CoursController::ajouterCours
+
+coursModifier:
+    path: /cours/modifier/{id}
+    controller: App\Controller\CoursController::modifierCours
+
+coursSupprimer:
+    path: /cours/supprimer/{id}
+    controller: App\Controller\CoursController::supprimerCours
+
