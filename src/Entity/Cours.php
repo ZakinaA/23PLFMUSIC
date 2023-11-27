@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,20 @@ class Cours
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     private ?TypeCours $typeCours = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cours')]
+    private ?TypeInstrument $typeInstrument = null;
+
+    #[ORM\ManyToOne(inversedBy: 'cours')]
+    private ?Professeur $professeur = null;
+
+    #[ORM\OneToMany(mappedBy: 'cours', targetEntity: Inscription::class)]
+    private Collection $inscriptions;
+
+    public function __construct()
+    {
+        $this->inscriptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +151,60 @@ class Cours
     public function setTypeCours(?TypeCours $typeCours): static
     {
         $this->typeCours = $typeCours;
+
+        return $this;
+    }
+
+    public function getTypeInstrument(): ?TypeInstrument
+    {
+        return $this->typeInstrument;
+    }
+
+    public function setTypeInstrument(?TypeInstrument $typeInstrument): static
+    {
+        $this->typeInstrument = $typeInstrument;
+
+        return $this;
+    }
+
+    public function getProfesseur(): ?Professeur
+    {
+        return $this->professeur;
+    }
+
+    public function setProfesseur(?Professeur $professeur): static
+    {
+        $this->professeur = $professeur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): static
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setCours($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): static
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getCours() === $this) {
+                $inscription->setCours(null);
+            }
+        }
 
         return $this;
     }
