@@ -17,6 +17,7 @@ LISTE DES INSTRUMENTS</br>
     <th>Date d'achat</th>
     <th>Utilisation</th>
     <th>Marque</th>
+    <th>Type</th>
 
 
 
@@ -26,8 +27,8 @@ LISTE DES INSTRUMENTS</br>
         <td>{{ instruments.prixAchat }}</a></td>
         <td>{{ instruments.dateAchat|date('d/m/Y') }}</td>
         <td>{{ instruments.utilisation}}</td>
-        <td>{{ instruments.marque.libelle}}</td>
-
+        <td>{{instruments.marque.libelle}} </td>
+        <td>{{instruments.typeInstrument.libelle}} </td>
 
     {% else %}
         <tr>
