@@ -23,8 +23,17 @@ class Intervention
     #[ORM\Column(length: 255)]
     private ?string $descriptif = null;
 
-    #[ORM\Column(length: 255)]
-    private ?integer $prix = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $prix = null;
+
+    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    private ?professionnel $professionnel = null;
+
+    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    private ?instrument $instrument = null;
+
+   
+
 
     public function getId(): ?int
     {
@@ -67,12 +76,15 @@ class Intervention
         return $this;
     }
 
-    public function getPrix(): ?integer
+
+    public function getPrix(): ?string
+
     {
         return $this->prix;
     }
 
-    public function setPrix(integer $prix): static
+    public function setPrix(string $prix): static
+
     {
         $this->prix = $prix;
 
@@ -80,4 +92,27 @@ class Intervention
     }
 
 
+    public function getProfessionnel(): ?professionnel
+    {
+        return $this->professionnel;
+    }
+
+    public function setProfessionnel(?professionnel $professionnel): static
+    {
+        $this->professionnel = $professionnel;
+
+        return $this;
+    }
+
+    public function getInstrument(): ?instrument
+    {
+        return $this->instrument;
+    }
+
+    public function setInstrument(?instrument $instrument): static
+    {
+        $this->instrument = $instrument;
+
+        return $this;
+    }
 }
