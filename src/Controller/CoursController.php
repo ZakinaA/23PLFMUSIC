@@ -36,15 +36,31 @@ class CoursController extends AbstractController
             'cours' => $cours,]);
     }
 
-    public function listerCours(ManagerRegistry $doctrine){
-
+    public function listerCours(ManagerRegistry $doctrine): Response
+    {
         $repository = $doctrine->getRepository(Cours::class);
 
-        $lesCours= $repository->findAll();
-        return $this->render('cours/lister.html.twig', [
-            'pLesCours' => $lesCours,]);
 
+        $lesCours = $repository->findBy([], ['jour' => 'ASC']);
+
+
+        $groupesCours = [];
+        foreach ($lesCours as $cours) {
+            $typeInstrument = $cours->getTypeInstrument()->getLibelle();
+
+            if (!isset($groupesCours[$typeInstrument])) {
+                $groupesCours[$typeInstrument] = [];
+            }
+
+            $groupesCours[$typeInstrument][] = $cours;
+        }
+
+        return $this->render('cours/lister.html.twig', [
+            'groupesCours' => $groupesCours,
+        ]);
     }
+
+
     public function ajouterCours(ManagerRegistry $doctrine,Request $request){
         $cours = new cours();
         $form = $this->createForm(CoursType::class, $cours);
