@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Consulter un instrument !{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<h5>PAGE DE CONSULTATION D'UN INSTRUMENT</h5>
+<p>
+<table >
+
+    <tr><td>Id : </td><td>{{instruments.id}} </td></tr>
+    <tr><td>N°Serie : </td><td>{{instruments.numSerie}} </td></tr>
+
+    <tr><td>Prix d'achat : </td><td>{{instruments.prixAchat}} </td> </tr>
+    <tr><td>Utilisation : </td><td>{{instruments.utilisation}} </td> </tr>
+    <tr><td>Marque : </td><td>{{instruments.marque.libelle}} </td> </tr>
+
+
+</table>
+
