@@ -36,17 +36,19 @@ class Instrument
 
 
 
-    #[ORM\ManyToOne(inversedBy: 'instruments')]
-    private ?Accessoire $accessoire = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'instruments')]
     private ?Marque $marque = null;
 
     #[ORM\ManyToOne(inversedBy: 'instruments')]
-    private ?TypeInstrument $typeInstruments = null;
+    private ?TypeInstrument $typeInstrument = null;
 
     #[ORM\OneToMany(mappedBy: 'Instrument', targetEntity: InstrumentCouleur::class)]
     private Collection $instrumentCouleurs;
+
+    #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Accessoire::class)]
+    private Collection $accessoire;
 
 
 
@@ -59,8 +61,9 @@ class Instrument
     {
 
         $this->couleurs = new ArrayCollection();
-        $this->typeInstruments = new ArrayCollection();
+
         $this->instrumentCouleurs = new ArrayCollection();
+        $this->accessoire = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -138,17 +141,7 @@ class Instrument
 
 
 
-    public function getAccessoire(): ?Accessoire
-    {
-        return $this->accessoire;
-    }
 
-    public function setAccessoire(?Accessoire $accessoire): static
-    {
-        $this->accessoire = $accessoire;
-
-        return $this;
-    }
 
     public function getMarque(): ?Marque
     {
@@ -174,14 +167,14 @@ class Instrument
         return $this;
     }
 
-    public function getTypeInstruments(): ?TypeInstruments
+    public function getTypeInstrument(): ?TypeInstrument
     {
-        return $this->typeInstruments;
+        return $this->typeInstrument;
     }
 
-    public function setTypeInstruments(?TypeInstruments $typeInstruments): static
+    public function setTypeInstrument(?TypeInstrument $typeInstrument): static
     {
-        $this->typeInstruments = $typeInstruments;
+        $this->typeInstrument = $typeInstrument;
 
         return $this;
     }
@@ -250,6 +243,36 @@ class Instrument
             // set the owning side to null (unless already changed)
             if ($instrumentCouleur->getInstrument() === $this) {
                 $instrumentCouleur->setInstrument(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Accessoire>
+     */
+    public function getAccessoire(): Collection
+    {
+        return $this->accessoire;
+    }
+
+    public function addAccessoire(Accessoire $accessoire): static
+    {
+        if (!$this->accessoire->contains($accessoire)) {
+            $this->accessoire->add($accessoire);
+            $accessoire->setInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccessoire(Accessoire $accessoire): static
+    {
+        if ($this->accessoire->removeElement($accessoire)) {
+            // set the owning side to null (unless already changed)
+            if ($accessoire->getInstrument() === $this) {
+                $accessoire->setInstrument(null);
             }
         }
 

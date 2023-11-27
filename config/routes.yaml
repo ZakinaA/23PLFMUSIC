@@ -2,7 +2,6 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
-
 intervention:
     path: /intervention/lister
     controller: App\Controller\InterventionController::listerIntervention
@@ -46,4 +45,3 @@ coursModifier:
 coursSupprimer:
     path: /cours/supprimer/{id}
     controller: App\Controller\CoursController::supprimerCours
-
