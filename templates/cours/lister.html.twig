@@ -9,49 +9,53 @@
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 
-<h2>LISTE DES COURS</h2>
-<table border="1">
-        <tr>
-                <th>Heure de début</th>
-                <th>Heure de fin</th>
-                <th>Nombre de places</th>
-                <th>Age minimum</th>
-                <th>Age maximum</th>
-                <th>Type de cours</th>
-                <th>Jour</th>
-                <th>Type d'instrument</th>
-                <th>Supprimer</th>
-                <th>Modifier</th>
-        </tr>
-        {% for c in pLesCours %}
-                <tr>
+        <h2>LISTE DES COURS</h2>
+        <table border="1">
+        {% for typeInstrument, coursGroupes in groupesCours %}
 
-                        <td>{{ c.heureDebut | format_time }}</td>
-                        <td>{{ c.heureFin | format_time }}</td>
-                        <td>{{ c.nbPlaces }}</td>
-                        <td>{{ c.ageMini }}</td>
-                        <td>{{ c.ageMaxi }}</td>
-                        <td>{{ c.typeCours.libelle }}</td>
-                        <td>{{ c.jour.libelle }}</td>
-                        <td>{{ c.typeInstrument.libelle }}</td>
-                        <td>
-                                <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit">Supprimer</button>
-                                </form>
-                        </td>
-                        <td>
-                                <form action="{{ path('coursModifier', {'id': c.id}) }}" method="post">
-                                        <input type="hidden" name="_method" value="UPDATE">
-                                        <button type="submit">Modifier</button>
-                                </form>
-                        </td>
-                </tr>
-        {% else %}
-                <tr>
-                        <td colspan="8">Aucun cours n'a été trouvé.</td>
-                </tr>
+
+                        <tr>
+                                <th>Instrument</th>
+                                <th>Jour</th>
+                                <th>Heure de début</th>
+                                <th>Heure de fin</th>
+                                <th>Nombre de places</th>
+                                <th>Age minimum</th>
+                                <th>Age maximum</th>
+                                <th>Type de cours</th>
+                                <th>Supprimer</th>
+                                <th>Modifier</th>
+
+                        </tr>
+
+                        {% for c in coursGroupes %}
+                                <tr>
+                                        {% if loop.first %}
+                                                <td style="text-align: center;" rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
+                                        {% endif %}
+                                        <td style="text-align: center;">{{ c.jour.libelle }}</td>
+                                        <td style="text-align: center;">{{ c.heureDebut | date('H:i') }}</td>
+                                        <td style="text-align: center;">{{ c.heureFin | date('H:i') }}</td>
+                                        <td style="text-align: center;">{{ c.nbPlaces }}</td>
+                                        <td style="text-align: center;">{{ c.ageMini }}</td>
+                                        <td style="text-align: center;">{{ c.ageMaxi }}</td>
+                                        <td style="text-align: center;">{{ c.typeCours.libelle }}</td>
+
+                                        <td>
+                                                <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit">Supprimer</button>
+                                                </form>
+                                        </td>
+                                        <td>
+                                                <form action="{{ path('coursModifier', {'id': c.id}) }}" method="post">
+                                                        <input type="hidden" name="_method" value="UPDATE">
+                                                        <button type="submit">Modifier</button>
+                                                </form>
+                                        </td>
+
+                                </tr>
+                        {% endfor %}
+
         {% endfor %}
-</table>
-</body>
-</html>
+        </table>
