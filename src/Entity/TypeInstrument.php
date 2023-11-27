@@ -28,15 +28,11 @@ class TypeInstrument
     public function __construct()
     {
         $this->classeintrument = new ArrayCollection();
+        $this->cours = new ArrayCollection();
+    }
 
     #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: Cours::class)]
     private Collection $cours;
-
-    public function __construct()
-    {
-        $this->cours = new ArrayCollection();
-
-    }
 
     public function getId(): ?int
     {
@@ -82,9 +78,12 @@ class TypeInstrument
             $this->classeintrument->add($classeintrument);
             $classeintrument->setTypeInstrument($this);
 
-    /**
-     * @return Collection<int, Cours>
-     */
+            /**
+             * @return Collection<int, Cours>
+             */
+        }
+        return $this;
+    }
     public function getCours(): Collection
     {
         return $this->cours;
@@ -102,7 +101,7 @@ class TypeInstrument
     }
 
 
-  public function removeClasseintrument(ClasseInstrument $classeintrument): static
+    public function removeClasseintrument(ClasseInstrument $classeintrument): static
     {
         if ($this->classeintrument->removeElement($classeintrument)) {
             // set the owning side to null (unless already changed)

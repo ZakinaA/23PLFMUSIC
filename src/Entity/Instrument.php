@@ -19,7 +19,7 @@ class Instrument
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $numSerie = null;
+    private ?string $numSerie = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateAchat = null;
