@@ -19,24 +19,19 @@ class TypeInstrument
     private ?string $libelle = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'typeinstrument')]
-    private ?Instrument $instrument = null;
+    #[ORM\OneToMany(mappedBy: 'TypeInstrument', targetEntity: Instrument::class)]
+    private Collection $instrument;
 
-    #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: ClasseInstrument::class)]
-    private Collection $classeintrument;
+
 
     public function __construct()
     {
-        $this->classeintrument = new ArrayCollection();
+        $this->classeinstrument = new ArrayCollection();
+        $this->cours = new ArrayCollection();
+    }
 
     #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: Cours::class)]
     private Collection $cours;
-
-    public function __construct()
-    {
-        $this->cours = new ArrayCollection();
-
-    }
 
     public function getId(): ?int
     {
@@ -82,9 +77,12 @@ class TypeInstrument
             $this->classeintrument->add($classeintrument);
             $classeintrument->setTypeInstrument($this);
 
-    /**
-     * @return Collection<int, Cours>
-     */
+            /**
+             * @return Collection<int, Cours>
+             */
+        }
+        return $this;
+    }
     public function getCours(): Collection
     {
         return $this->cours;
@@ -102,7 +100,7 @@ class TypeInstrument
     }
 
 
-  public function removeClasseintrument(ClasseInstrument $classeintrument): static
+    public function removeClasseintrument(ClasseInstrument $classeintrument): static
     {
         if ($this->classeintrument->removeElement($classeintrument)) {
             // set the owning side to null (unless already changed)

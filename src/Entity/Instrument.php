@@ -19,7 +19,7 @@ class Instrument
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $numSerie = null;
+    private ?string $numSerie = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateAchat = null;
@@ -49,6 +49,9 @@ class Instrument
 
     #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Accessoire::class)]
     private Collection $accessoire;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
 
 
@@ -155,17 +158,16 @@ class Instrument
         return $this;
     }
 
-    public function getCouleurs(): ?Couleurs
-    {
-        return $this->couleurs;
-    }
+    //public function getCouleurs(): ?Couleurs
+    //{
+    //    return $this->couleurs;
+    //}
 
-    public function setCouleurs(?Couleurs $couleurs): static
-    {
-        $this->couleurs = $couleurs;
+    // {
+       // $this->couleurs = $couleurs;
 
-        return $this;
-    }
+       // return $this;
+    //}
 
     public function getTypeInstrument(): ?TypeInstrument
     {
@@ -275,6 +277,18 @@ class Instrument
                 $accessoire->setInstrument(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
 
         return $this;
     }

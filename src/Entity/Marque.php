@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MarqueRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MarqueRepository::class)]
@@ -16,8 +17,9 @@ class Marque
     #[ORM\Column(length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marque')]
-    private ?Instrument $instrument = null;
+    #[ORM\OneToMany(mappedBy: 'Marque', targetEntity: Instrument::class)]
+    private Collection $instrument;
+
 
     public function getId(): ?int
     {

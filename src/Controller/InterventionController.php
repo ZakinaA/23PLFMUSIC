@@ -26,16 +26,16 @@ class InterventionController extends AbstractController
     }
     public function consulterIntervention(ManagerRegistry $doctrine, int $id){
 
-        $Intervention= $doctrine->getRepository(Intervention::class)->find($id);
+        $intervention= $doctrine->getRepository(Intervention::class)->find($id);
 
-        if (!$Intervention) {
+        if (!$intervention) {
             throw $this->createNotFoundException(
                 'Aucune intervention trouvé avec le numéro '.$id
             );
         }
         //return new Response('Intervention : '.$Intervention->getid());
         return $this->render('Intervention/consulter.html.twig', [
-            'intervention' => $Intervention,]);
+            'intervention' => $intervention,]);
     }
     public function listerIntervention(ManagerRegistry $doctrine){
 
