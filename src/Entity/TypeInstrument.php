@@ -19,15 +19,14 @@ class TypeInstrument
     private ?string $libelle = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'typeinstrument')]
-    private ?Instrument $instrument = null;
+    #[ORM\OneToMany(mappedBy: 'TypeInstrument', targetEntity: Instrument::class)]
+    private Collection $instrument;
 
-    #[ORM\OneToMany(mappedBy: 'typeInstrument', targetEntity: ClasseInstrument::class)]
-    private Collection $classeintrument;
+
 
     public function __construct()
     {
-        $this->classeintrument = new ArrayCollection();
+        $this->classeinstrument = new ArrayCollection();
         $this->cours = new ArrayCollection();
     }
 

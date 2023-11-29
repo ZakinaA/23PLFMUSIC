@@ -2,6 +2,7 @@ controllers:
     resource: ../src/Controller/
     type: attribute
 
+
 intervention:
     path: /intervention/lister
     controller: App\Controller\InterventionController::listerIntervention
@@ -23,8 +24,12 @@ listerInstrument:
     controller: App\Controller\InstrumentController::listerInstrument
 
 InstrumentConsulter:
-        path: /instrument/consulter/{id}
-        controller: App\Controller\InstrumentController::consulterInstrument
+    path: /instrument/consulter/{id}
+    controller: App\Controller\InstrumentController::consulterInstrument
+
+instrumentAjouter:
+    path: /instrument/ajouter
+    controller: App\Controller\InstrumentController::ajouterInstrument
 
 coursConsulter:
     path: /cours/consulter/{id}
@@ -45,3 +50,4 @@ coursModifier:
 coursSupprimer:
     path: /cours/supprimer/{id}
     controller: App\Controller\CoursController::supprimerCours
+

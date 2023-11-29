@@ -18,6 +18,7 @@ class InstrumentType extends AbstractType
     {
         $builder
             ->add('numSerie')
+            ->add('nom')
             ->add('dateAchat', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',

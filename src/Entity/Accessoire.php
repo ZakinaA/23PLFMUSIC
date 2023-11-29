@@ -18,16 +18,10 @@ class Accessoire
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'accessoire', targetEntity: Instrument::class)]
-    private Collection $instruments;
 
     #[ORM\ManyToOne(inversedBy: 'accessoire')]
     private ?Instrument $instrument = null;
 
-    public function __construct()
-    {
-        $this->instruments = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
