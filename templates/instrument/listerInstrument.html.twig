@@ -22,6 +22,7 @@ LISTE DES INSTRUMENTS</br>
 
 
 
+
     {% for instruments in instruments %}
         <tr>
         <td><a href="{{ path('InstrumentConsulter', { 'id': instruments.id }) }}">{{ instruments.numSerie }}</a></td>
@@ -31,12 +32,27 @@ LISTE DES INSTRUMENTS</br>
         <td>{{ instruments.utilisation}}</td>
         <td>{{instruments.marque.libelle}} </td>
         <td>{{instruments.typeInstrument.libelle}} </td>
+        <td>
+            <form method="post" action="{{ path('instrumentModifier', {'id': instruments.id}) }}">
+                <button type="submit">Modifier</button>
+
+            </form>
+            <form method="post" action="{{ path('InstrumentConsulter', {'id': instruments.id}) }}">
+                <button type="submit">Consulter</button>
+
+
+        </td>
+
+
+
+
 
     {% else %}
         <tr>
             <td>Aucun instrument n'a été trouvé.</td>
         </tr>
     {% endfor %}
+
 </table>
 
 
