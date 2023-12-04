@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+<h2>LISTE DES CONTRAT DE PRET</h2>
+<form action="{{ path('contratPretAjouter') }}" method="get">
+    <button type="submit">Ajouter un nouveau Contrat de Pret</button>
+</form>
+<table border="1">
+
+
+    <tr>
+        <th>Instrument </th>
+        <th>Eleve</th>
+        <th>Consulter</th>
+        <th>Modifier</th>
+
+
+    </tr>
+
+    {% for c in contratPrets %}
+        <tr>
+
+            <td style="text-align: center;">{{ c.Instrument.numSerie }}</td>
+            <td style="text-align: center;">{{ c.Eleve.nom }}</td>
+
+            <td>
+                <form action="{{ path('contratPretConsulter', {'id': c.id}) }}" method="get">
+                    <button type="submit">Consulter</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ path('contratPretModifier', {'id': c.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="UPDATE">
+                    <button type="submit">Modifier</button>
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>
