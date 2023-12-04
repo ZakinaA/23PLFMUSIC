@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\InterventionRepository;
+use App\Repository\ContratPretRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
-#[ORM\Entity(repositoryClass: InterventionRepository::class)]
-class Intervention
+#[ORM\Entity(repositoryClass: ContratPretRepository::class)]
+class ContratPret
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -23,26 +23,29 @@ class Intervention
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $descriptif = null;
+    private ?string $attestationAssurance = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $prix = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $etatDatailleDebut = null;
 
-    #[ORM\ManyToOne(inversedBy: 'interventions')]
-    private ?professionnel $professionnel = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $etatDetailleRetour = null;
 
-    #[ORM\ManyToOne(inversedBy: 'interventions')]
+    #[ORM\ManyToOne(inversedBy: 'contratPrets')]
     private ?Instrument $instrument = null;
 
-    #[ORM\OneToMany(mappedBy: 'intervention', targetEntity: InterPret::class)]
+
+
+    #[ORM\ManyToOne(inversedBy: 'contratPrets')]
+    private ?Eleve $eleve = null;
+
+    #[ORM\OneToMany(mappedBy: 'contratPret', targetEntity: InterPret::class)]
     private Collection $interPrets;
 
     public function __construct()
     {
         $this->interPrets = new ArrayCollection();
     }
-
-
 
     public function getId(): ?int
     {
@@ -73,54 +76,63 @@ class Intervention
         return $this;
     }
 
-    public function getDescriptif(): ?string
+    public function getAttestationAssurance(): ?string
     {
-        return $this->descriptif;
+        return $this->attestationAssurance;
     }
 
-    public function setDescriptif(string $descriptif): static
+    public function setAttestationAssurance(string $attestationAssurance): static
     {
-        $this->descriptif = $descriptif;
+        $this->attestationAssurance = $attestationAssurance;
 
         return $this;
     }
 
-
-    public function getPrix(): ?string
-
+    public function getEtatDatailleDebut(): ?string
     {
-        return $this->prix;
+        return $this->etatDatailleDebut;
     }
 
-    public function setPrix(string $prix): static
-
+    public function setEtatDatailleDebut(string $etatDatailleDebut): static
     {
-        $this->prix = $prix;
+        $this->etatDatailleDebut = $etatDatailleDebut;
 
         return $this;
     }
 
-
-    public function getProfessionnel(): ?professionnel
+    public function getEtatDetailleRetour(): ?string
     {
-        return $this->professionnel;
+        return $this->etatDetailleRetour;
     }
 
-    public function setProfessionnel(?professionnel $professionnel): static
+    public function setEtatDetailleRetour(?string $etatDetailleRetour): static
     {
-        $this->professionnel = $professionnel;
+        $this->etatDetailleRetour = $etatDetailleRetour;
 
         return $this;
     }
 
-    public function getInstrument(): ?instrument
+    public function getInstrument(): ?Instrument
     {
         return $this->instrument;
     }
 
-    public function setInstrument(?instrument $instrument): static
+    public function setInstrument(?Instrument $instrument): static
     {
         $this->instrument = $instrument;
+
+        return $this;
+    }
+
+
+    public function getEleve(): ?Eleve
+    {
+        return $this->eleve;
+    }
+
+    public function setEleve(?Eleve $eleve): static
+    {
+        $this->eleve = $eleve;
 
         return $this;
     }
@@ -137,7 +149,7 @@ class Intervention
     {
         if (!$this->interPrets->contains($interPret)) {
             $this->interPrets->add($interPret);
-            $interPret->setIntervention($this);
+            $interPret->setContratPret($this);
         }
 
         return $this;
@@ -147,12 +159,11 @@ class Intervention
     {
         if ($this->interPrets->removeElement($interPret)) {
             // set the owning side to null (unless already changed)
-            if ($interPret->getIntervention() === $this) {
-                $interPret->setIntervention(null);
+            if ($interPret->getContratPret() === $this) {
+                $interPret->setContratPret(null);
             }
         }
 
         return $this;
     }
-
 }
