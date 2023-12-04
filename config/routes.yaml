@@ -97,3 +97,15 @@ responsableSupprimer:
 contratPretConsulter:
     path: /contratPret/consulter/{id}
     controller: App\Controller\ContratPretController::consulterContratPret
+
+contratPretLister:
+    path: /contratPret/lister
+    controller: App\Controller\ContratPretController::listerContratPret
+
+contratPretAjouter:
+    path: /contratPret/ajouter
+    controller: App\Controller\ContratPretController::ajouterContratPret
+
+contratPretModifier:
+    path: /contratPret/modifier/{id}
+    controller: App\Controller\ContratPretController::modifierContratPret
