@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un eleve!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon superbe menu{% endblock %}
+
+{% block body %}
+    <h3>PAGE DE CONSULTATION D'UN ELEVE</h3>
+    <p>
+    <table >
+
+        <tr><td>Nom : </td><td>{{eleve.nom}}</td>
+
+        <tr><td>Prenom : </td><td>{{eleve.prenom}}</td>
+
+        <tr><td>E-mail: </td><td>{{eleve.mail}}</td></tr>
+
+        <tr><td>Telephone : </td><td>{{eleve.tel}}</td></tr>
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

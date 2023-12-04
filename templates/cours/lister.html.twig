@@ -10,6 +10,9 @@
 {% block javascripts %}{% endblock %}
 
         <h2>LISTE DES COURS</h2>
+<form action="{{ path('coursAjouter') }}" method="get">
+        <button type="submit">Ajouter un nouveau cours</button>
+</form>
         <table border="1">
         {% for typeInstrument, coursGroupes in groupesCours %}
 
@@ -23,8 +26,9 @@
                                 <th>Age minimum</th>
                                 <th>Age maximum</th>
                                 <th>Type de cours</th>
-                                <th>Supprimer</th>
+                                <th>Consulter</th>
                                 <th>Modifier</th>
+                                <th>Supprimer</th>
 
                         </tr>
 
@@ -42,9 +46,8 @@
                                         <td style="text-align: center;">{{ c.typeCours.libelle }}</td>
 
                                         <td>
-                                                <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
-                                                        <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit">Supprimer</button>
+                                                <form action="{{ path('coursConsulter', {'id': c.id}) }}" method="get">
+                                                        <button type="submit">Consulter</button>
                                                 </form>
                                         </td>
                                         <td>
@@ -53,9 +56,17 @@
                                                         <button type="submit">Modifier</button>
                                                 </form>
                                         </td>
+                                        <td>
+                                                <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit">Supprimer</button>
+                                                </form>
+                                        </td>
+
 
                                 </tr>
                         {% endfor %}
 
         {% endfor %}
         </table>
+

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un responsable!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon superbe menu{% endblock %}
+
+{% block body %}
+    <h3>PAGE DE CONSULTATION D'UN RESPONSABLE</h3>
+    <p>
+    <table >
+
+        <tr><td>Nom : </td><td>{{responsable.nom}}</td>
+
+        <tr><td>Prenom : </td><td>{{responsable.prenom}}</td>
+
+        <tr><td>E-mail: </td><td>{{responsable.mail}}</td></tr>
+
+        <tr><td>Telephone : </td><td>{{responsable.tel}}</td></tr>
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

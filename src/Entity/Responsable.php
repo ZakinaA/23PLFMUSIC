@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EleveRepository;
+use App\Repository\ResponsableRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EleveRepository::class)]
-class Eleve
+#[ORM\Entity(repositoryClass: ResponsableRepository::class)]
+class Responsable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,6 +24,9 @@ class Eleve
     #[ORM\Column]
     private ?int $numRue = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $rue = null;
+
     #[ORM\Column]
     private ?int $copos = null;
 
@@ -36,19 +39,12 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $rue = null;
-
-    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Inscription::class)]
-    private Collection $inscriptions;
-
-    #[ORM\ManyToMany(targetEntity: Responsable::class, inversedBy: 'eleves')]
-    private Collection $responsables;
+    #[ORM\ManyToMany(targetEntity: Eleve::class, mappedBy: 'responsables')]
+    private Collection $eleves;
 
     public function __construct()
     {
-        $this->inscriptions = new ArrayCollection();
-        $this->responsables = new ArrayCollection();
+        $this->eleves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,6 +84,18 @@ class Eleve
     public function setNumRue(int $numRue): static
     {
         $this->numRue = $numRue;
+
+        return $this;
+    }
+
+    public function getRue(): ?string
+    {
+        return $this->rue;
+    }
+
+    public function setRue(string $rue): static
+    {
+        $this->rue = $rue;
 
         return $this;
     }
@@ -140,68 +148,29 @@ class Eleve
         return $this;
     }
 
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): static
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Inscription>
+     * @return Collection<int, Eleve>
      */
-    public function getInscriptions(): Collection
+    public function getEleves(): Collection
     {
-        return $this->inscriptions;
+        return $this->eleves;
     }
 
-    public function addInscription(Inscription $inscription): static
+    public function addElefe(Eleve $elefe): static
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions->add($inscription);
-            $inscription->setEleve($this);
+        if (!$this->eleves->contains($elefe)) {
+            $this->eleves->add($elefe);
+            $elefe->addResponsable($this);
         }
 
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): static
+    public function removeElefe(Eleve $elefe): static
     {
-        if ($this->inscriptions->removeElement($inscription)) {
-            // set the owning side to null (unless already changed)
-            if ($inscription->getEleve() === $this) {
-                $inscription->setEleve(null);
-            }
+        if ($this->eleves->removeElement($elefe)) {
+            $elefe->removeResponsable($this);
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Responsable>
-     */
-    public function getResponsables(): Collection
-    {
-        return $this->responsables;
-    }
-
-    public function addResponsable(Responsable $responsable): static
-    {
-        if (!$this->responsables->contains($responsable)) {
-            $this->responsables->add($responsable);
-        }
-
-        return $this;
-    }
-
-    public function removeResponsable(Responsable $responsable): static
-    {
-        $this->responsables->removeElement($responsable);
 
         return $this;
     }
