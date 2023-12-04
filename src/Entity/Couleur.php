@@ -19,16 +19,16 @@ class Couleur
     private ?string $nom = null;
 
     #[ORM\ManyToMany(targetEntity: Instrument::class, mappedBy: 'couleur')]
-    private Collection $instruments;
-
-    #[ORM\OneToMany(mappedBy: 'Couleur', targetEntity: InstrumentCouleur::class)]
-    private Collection $instrumentCouleurs;
+    private Collection $instrument;
 
     public function __construct()
     {
-        $this->instruments = new ArrayCollection();
-        $this->instrumentCouleurs = new ArrayCollection();
+        $this->instrument = new ArrayCollection();
     }
+
+
+
+
 
     public function getId(): ?int
     {
@@ -50,15 +50,15 @@ class Couleur
     /**
      * @return Collection<int, Instrument>
      */
-    public function getInstruments(): Collection
+    public function getInstrument(): Collection
     {
-        return $this->instruments;
+        return $this->instrument;
     }
 
     public function addInstrument(Instrument $instrument): static
     {
-        if (!$this->instruments->contains($instrument)) {
-            $this->instruments->add($instrument);
+        if (!$this->instrument->contains($instrument)) {
+            $this->instrument->add($instrument);
             $instrument->addCouleur($this);
         }
 
@@ -67,40 +67,12 @@ class Couleur
 
     public function removeInstrument(Instrument $instrument): static
     {
-        if ($this->instruments->removeElement($instrument)) {
+        if ($this->instrument->removeElement($instrument)) {
             $instrument->removeCouleur($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, InstrumentCouleur>
-     */
-    public function getInstrumentCouleurs(): Collection
-    {
-        return $this->instrumentCouleurs;
-    }
 
-    public function addInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if (!$this->instrumentCouleurs->contains($instrumentCouleur)) {
-            $this->instrumentCouleurs->add($instrumentCouleur);
-            $instrumentCouleur->setCouleur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if ($this->instrumentCouleurs->removeElement($instrumentCouleur)) {
-            // set the owning side to null (unless already changed)
-            if ($instrumentCouleur->getCouleur() === $this) {
-                $instrumentCouleur->setCouleur(null);
-            }
-        }
-
-        return $this;
-    }
 }

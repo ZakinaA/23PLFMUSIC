@@ -14,13 +14,21 @@
 
 
     <tr><td>Id : </td><td>{{instruments.id}} </td></tr>
+    <tr><td>Nom : </td><td>{{instruments.nom}} </td></tr>
     <tr><td>N°Serie : </td><td>{{instruments.numSerie}} </td></tr>
 
-    <tr><td>Prix d'achat : </td><td>{{instruments.prixAchat}} </td> </tr>
+    <tr><td>Prix d'achat : </td><td>{{instruments.prixAchat}}€ </td> </tr>
     <tr><td>Utilisation : </td><td>{{instruments.utilisation}} </td> </tr>
     <tr><td>Marque : </td><td>{{instruments.marque.libelle}} </td> </tr>
     <tr><td>Type : </td><td>{{instruments.typeInstrument.libelle}} </td> </tr>
-
-
+    <tr><td>Couleur(s) : </td>
+        <td>
+            <ul>-
+                {% for couleur in instruments.couleur %}
+                <li>{{ couleur.nom }} </li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
 </table>
 
