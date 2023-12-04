@@ -69,17 +69,17 @@ class Instrument
 
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getNumSerie(): ?int
+    public function getNumSerie(): ?string
     {
         return $this->numSerie;
     }
 
-    public function setNumSerie(int $numSerie): static
+    public function setNumSerie(string $numSerie): static
     {
         $this->numSerie = $numSerie;
 
@@ -212,35 +212,7 @@ class Instrument
         return $this;
     }
 
-    /**
-     * @return Collection<int, InstrumentCouleur>
-     */
-    public function getInstrumentCouleurs(): Collection
-    {
-        return $this->instrumentCouleurs;
-    }
 
-    public function addInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if (!$this->instrumentCouleurs->contains($instrumentCouleur)) {
-            $this->instrumentCouleurs->add($instrumentCouleur);
-            $instrumentCouleur->setInstrument($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if ($this->instrumentCouleurs->removeElement($instrumentCouleur)) {
-            // set the owning side to null (unless already changed)
-            if ($instrumentCouleur->getInstrument() === $this) {
-                $instrumentCouleur->setInstrument(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Accessoires>
@@ -260,7 +232,7 @@ class Instrument
         return $this;
     }
 
-    public function removeAccessoire(InstrumentCouleur $accessoire): static
+    public function removeAccessoire(Accessoire $accessoire): static
     {
         if ($this->accessoire->removeElement($accessoire)) {
             // set the owning side to null (unless already changed)

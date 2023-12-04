@@ -93,3 +93,7 @@ responsableModifier:
 responsableSupprimer:
     path: /responsable/supprimer/{id}
     controller: App\Controller\ResponsableController::supprimerResponsable
+
+contratPretConsulter:
+    path: /contratPret/consulter/{id}
+    controller: App\Controller\ContratPretController::consulterContratPret

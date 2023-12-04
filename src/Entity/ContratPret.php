@@ -26,7 +26,7 @@ class ContratPret
     private ?string $attestationAssurance = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $etatDatailleDebut = null;
+    private ?string $etatDetailleDebut = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $etatDetailleRetour = null;
@@ -88,14 +88,14 @@ class ContratPret
         return $this;
     }
 
-    public function getEtatDatailleDebut(): ?string
+    public function getEtatDetailleDebut(): ?string
     {
-        return $this->etatDatailleDebut;
+        return $this->etatDetailleDebut;
     }
 
-    public function setEtatDatailleDebut(string $etatDatailleDebut): static
+    public function setEtatDetailleDebut(string $etatDetailleDebut): static
     {
-        $this->etatDatailleDebut = $etatDatailleDebut;
+        $this->etatDetailleDebut = $etatDetailleDebut;
 
         return $this;
     }
