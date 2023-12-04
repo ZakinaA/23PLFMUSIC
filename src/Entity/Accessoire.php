@@ -19,9 +19,13 @@ class Accessoire
     private ?string $libelle = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'accessoire')]
+    #[ORM\ManyToOne(inversedBy: 'accessoires')]
     private ?Instrument $instrument = null;
 
+    public function __construct()
+    {
+        $this->instruments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

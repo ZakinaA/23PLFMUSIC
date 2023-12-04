@@ -16,7 +16,7 @@ class ClasseInstrument
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'classeintrument')]
+    #[ORM\ManyToOne(inversedBy: 'classeinstrument')]
     private ?TypeInstrument $typeInstrument = null;
 
 

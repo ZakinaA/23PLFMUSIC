@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Couleur;
 use App\Entity\Instrument;
 use App\Entity\Marque;
 use App\Entity\TypeInstrument;
@@ -36,7 +37,13 @@ class InstrumentType extends AbstractType
 
             ->add('utilisation')
             ->add('cheminImage')
-            ->add('enregistrer', SubmitType::class, array('label' => 'Nouveau Instrument'))
+            ->add('couleur', EntityType::class, [
+                'class' => Couleur::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel Instrument'))
 
         ;
     }

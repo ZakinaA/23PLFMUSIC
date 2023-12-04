@@ -44,19 +44,18 @@ class Instrument
     #[ORM\ManyToOne(inversedBy: 'instruments')]
     private ?TypeInstrument $typeInstrument = null;
 
-    #[ORM\OneToMany(mappedBy: 'Instrument', targetEntity: InstrumentCouleur::class)]
-    private Collection $instrumentCouleurs;
 
     #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Accessoire::class)]
-    private Collection $accessoire;
+    private Collection $accessoires;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[ORM\ManyToMany(targetEntity: Couleur::class, inversedBy: 'instrument')]
+    private Collection $couleurs;
 
 
-    //#[ORM\onetomany(targetEntity: Couleur::class, inversedBy: 'instruments')]
-    //private ?Couleur $couleurs = null;
+
 
 
 
@@ -64,9 +63,10 @@ class Instrument
     {
 
         $this->couleurs = new ArrayCollection();
-
+        $this->accessoires = new ArrayCollection();
         $this->instrumentCouleurs = new ArrayCollection();
-        $this->accessoire = new ArrayCollection();
+        $this->couleur = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -158,16 +158,7 @@ class Instrument
         return $this;
     }
 
-    //public function getCouleurs(): ?Couleurs
-    //{
-    //    return $this->couleurs;
-    //}
 
-    // {
-       // $this->couleurs = $couleurs;
-
-       // return $this;
-    //}
 
     public function getTypeInstrument(): ?TypeInstrument
     {
@@ -252,11 +243,11 @@ class Instrument
     }
 
     /**
-     * @return Collection<int, Accessoire>
+     * @return Collection<int, Accessoires>
      */
-    public function getAccessoire(): Collection
+    public function getAccessoires(): Collection
     {
-        return $this->accessoire;
+        return $this->accessoires;
     }
 
     public function addAccessoire(Accessoire $accessoire): static
@@ -269,7 +260,7 @@ class Instrument
         return $this;
     }
 
-    public function removeAccessoire(Accessoire $accessoire): static
+    public function removeAccessoire(InstrumentCouleur $accessoire): static
     {
         if ($this->accessoire->removeElement($accessoire)) {
             // set the owning side to null (unless already changed)

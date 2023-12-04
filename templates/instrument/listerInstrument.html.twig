@@ -13,6 +13,7 @@ LISTE DES INSTRUMENTS</br>
 <table>
 
     <th>Numéro de Série</th>
+    <th> Nom </th>
     <th>Prix d'Achat</th>
     <th>Date d'achat</th>
     <th>Utilisation</th>
@@ -24,7 +25,8 @@ LISTE DES INSTRUMENTS</br>
     {% for instruments in instruments %}
         <tr>
         <td><a href="{{ path('InstrumentConsulter', { 'id': instruments.id }) }}">{{ instruments.numSerie }}</a></td>
-        <td>{{ instruments.prixAchat }}</a></td>
+        <td>{{ instruments.nom }}</a></td>
+        <td>{{ instruments.prixAchat }}€</a></td>
         <td>{{ instruments.dateAchat|date('d/m/Y') }}</td>
         <td>{{ instruments.utilisation}}</td>
         <td>{{instruments.marque.libelle}} </td>
