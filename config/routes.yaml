@@ -93,3 +93,31 @@ responsableModifier:
 responsableSupprimer:
     path: /responsable/supprimer/{id}
     controller: App\Controller\ResponsableController::supprimerResponsable
+
+
+inscriptionConsulter:
+    path: /inscription/consulter/{id}
+    controller: App\Controller\InscriptionController::consulterInscription
+
+inscriptionLister:
+    path: /inscription/lister
+    controller: App\Controller\InscriptionController::listerInscription
+
+inscriptionAjouter:
+    path: /inscription/ajouter
+    controller: App\Controller\InscriptionController::ajouterInscription
+
+inscriptionModifier:
+    path: /inscription/modifier/{id}
+    controller: App\Controller\InscriptionController::modifierInscription
+
+inscriptionSupprimer:
+    path: /inscription/supprimer/{id}
+    controller: App\Controller\InscriptionController::supprimerInscription
+
+
+
+
+test:
+    path: /test/test
+    controller : App\Controller\TestController::ajouterTest
