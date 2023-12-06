@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
-{% block title %}Consulter un responsable!{% endblock %}
+{% block title %}Consulter un cours!{% endblock %}
 {% block stylesheets %}{% endblock %}
-
-
 {% block header %}Mon superbe menu{% endblock %}
-
 {% block body %}
-    <h3>PAGE DE CONSULTATION D'UN RESPONSABLE</h3>
-    <p>
-    <table >
+<div class ="col-sm-12 col-xl-6 ">
+    <div  class="container-fluid pt-4 px-4">
+        <div class =" bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">PAGE DE CONSULTATION D'UN RESPONSABLE</h6>
+
+    <table class="table table-borderless" >
 
         <tr><td>Nom : </td><td>{{responsable.nom}}</td>
 
@@ -19,6 +19,8 @@
         <tr><td>Telephone : </td><td>{{responsable.tel}}</td></tr>
     </table>
 
-
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block javascripts %}{% endblock %}

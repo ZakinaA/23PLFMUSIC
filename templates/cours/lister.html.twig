@@ -1,34 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
 
-        <h2>LISTE DES COURS</h2>
-<form action="{{ path('coursAjouter') }}" method="get">
-        <button type="submit">Ajouter un nouveau cours</button>
-</form>
-        <table border="1">
+        <form action="{{ path('coursAjouter') }}" method="get">
+
+        </form>
+
+        <div class="col-12">
+                <div  class="container-fluid pt-4 px-4">
+                <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">LISTE DES COURS</h6>
+                        <form action="{{ path('coursAjouter') }}" method="get">
+                                <button type="submit" class="btn btn-primary">Ajouter un nouveau cours</button>
+                        </form>
+                        <div class="table-responsive">
+        <table class="table">
         {% for typeInstrument, coursGroupes in groupesCours %}
 
 
                         <tr>
-                                <th>Instrument</th>
-                                <th>Jour</th>
-                                <th>Heure de début</th>
-                                <th>Heure de fin</th>
-                                <th>Nombre de places</th>
-                                <th>Age minimum</th>
-                                <th>Age maximum</th>
-                                <th>Type de cours</th>
-                                <th>Consulter</th>
-                                <th>Modifier</th>
-                                <th>Supprimer</th>
+                                <th scope="col" style="text-align: center;">Instrument</th>
+                                <th scope="col" style="text-align: center;">Jour</th>
+                                <th scope="col" style="text-align: center;">Heure de début</th>
+                                <th scope="col" style="text-align: center;">Heure de fin</th>
+                                <th scope="col" style="text-align: center;">Nombre de places</th>
+                                <th scope="col" style="text-align: center;">Age minimum</th>
+                                <th scope="col" style="text-align: center;">Age maximum</th>
+                                <th scope="col" style="text-align: center;">Type de cours</th>
+                                <th scope="col">Consulter</th>
+                                <th scope="col">Modifier</th>
+                                <th scope="col">Supprimer</th>
 
                         </tr>
 
@@ -37,7 +40,7 @@
                                         {% if loop.first %}
                                                 <td style="text-align: center;" rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
                                         {% endif %}
-                                        <td style="text-align: center;">{{ c.jour.libelle }}</td>
+                                        <td scope="row">{{ c.jour.libelle }}</td>
                                         <td style="text-align: center;">{{ c.heureDebut | date('H:i') }}</td>
                                         <td style="text-align: center;">{{ c.heureFin | date('H:i') }}</td>
                                         <td style="text-align: center;">{{ c.nbPlaces }}</td>
@@ -47,19 +50,19 @@
 
                                         <td>
                                                 <form action="{{ path('coursConsulter', {'id': c.id}) }}" method="get">
-                                                        <button type="submit">Consulter</button>
+                                                        <button type="submit" class="btn btn-outline-primary">Consulter</button>
                                                 </form>
                                         </td>
                                         <td>
                                                 <form action="{{ path('coursModifier', {'id': c.id}) }}" method="post">
                                                         <input type="hidden" name="_method" value="UPDATE">
-                                                        <button type="submit">Modifier</button>
+                                                        <button type="submit" class="btn btn-outline-primary">Modifier</button>
                                                 </form>
                                         </td>
                                         <td>
                                                 <form action="{{ path('coursSupprimer', {'id': c.id}) }}" method="post">
                                                         <input type="hidden" name="_method" value="DELETE">
-                                                        <button type="submit">Supprimer</button>
+                                                        <button type="submit" class="btn btn-outline-primary" >Supprimer</button>
                                                 </form>
                                         </td>
 
@@ -69,4 +72,9 @@
 
         {% endfor %}
         </table>
-
+                        </div>
+                </div>
+                </div>
+        </div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
