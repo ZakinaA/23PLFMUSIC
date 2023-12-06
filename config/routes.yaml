@@ -51,13 +51,44 @@ coursSupprimer:
     path: /cours/supprimer/{id}
     controller: App\Controller\CoursController::supprimerCours
 
+instrumentModifier:
+    path: /instrument/modifier/{id}
+    controller: App\Controller\InstrumentController::modifierInstrument
+eleveConsulter:
+    path: /eleve/consulter/{id}
+    controller: App\Controller\EleveController::consulterEleve
 
+eleveLister:
+    path: /eleve/lister
+    controller: App\Controller\EleveController::listerEleve
 
+eleveAjouter:
+    path: /eleve/ajouter
+    controller: App\Controller\EleveController::ajouterEleve
 
+eleveModifier:
+    path: /eleve/modifier/{id}
+    controller: App\Controller\EleveController::modifierEleve
 
+eleveSupprimer:
+    path: /eleve/supprimer/{id}
+    controller: App\Controller\EleveController::supprimerEleve
 
+responsableConsulter:
+    path: /responsable/consulter/{id}
+    controller: App\Controller\ResponsableController::consulterResponsable
 
+responsableLister:
+    path: /responsable/lister
+    controller: App\Controller\ResponsableController::listerResponsable
 
+responsableAjouter:
+    path: /responsable/ajouter
+    controller: App\Controller\ResponsableController::ajouterResponsable
+
+responsableModifier:
+    path: /responsable/modifier/{id}
+    controller: App\Controller\ResponsableController::modifierResponsable
 
 
 instrumentModifier:
@@ -89,3 +120,36 @@ accessoireModifier:
 accessoireSupprimer:
     path: /accessoire/supprimer/{id}
     controller: App\Controller\AccessoireController::supprimerAccessoire
+
+responsableSupprimer:
+    path: /responsable/supprimer/{id}
+    controller: App\Controller\ResponsableController::supprimerResponsable
+
+
+inscriptionConsulter:
+    path: /inscription/consulter/{id}
+    controller: App\Controller\InscriptionController::consulterInscription
+
+inscriptionLister:
+    path: /inscription/lister
+    controller: App\Controller\InscriptionController::listerInscription
+
+inscriptionAjouter:
+    path: /inscription/ajouter
+    controller: App\Controller\InscriptionController::ajouterInscription
+
+inscriptionModifier:
+    path: /inscription/modifier/{id}
+    controller: App\Controller\InscriptionController::modifierInscription
+
+inscriptionSupprimer:
+    path: /inscription/supprimer/{id}
+    controller: App\Controller\InscriptionController::supprimerInscription
+
+
+
+
+test:
+    path: /test/test
+    controller : App\Controller\TestController::ajouterTest
+
