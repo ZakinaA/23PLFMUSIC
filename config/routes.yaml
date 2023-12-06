@@ -90,6 +90,37 @@ responsableModifier:
     path: /responsable/modifier/{id}
     controller: App\Controller\ResponsableController::modifierResponsable
 
+
+instrumentModifier:
+    path: /instrument/modifier/{id}
+    controller: App\Controller\InstrumentController::modifierInstrument
+
+instrumentSupprimer:
+    path: /instrument/supprimer/{id}
+    controller: App\Controller\InstrumentController::supprimerInstrument
+
+accessoireLister:
+        path: /accessoire/lister
+        controller: App\Controller\AccessoireController::listerAccessoire
+
+accessoireConsulter:
+            path: /accessoire/consulter/{id}
+            controller: App\Controller\AccessoireController::consulterAccessoire
+
+accessoireAjouter:
+  path: /accessoire/ajouter
+  controller: App\Controller\AccessoireController::ajouterAccessoire
+
+
+accessoireModifier:
+    path: /accessoire/modifier/{id}
+    controller: App\Controller\AccessoireController::modifierAccessoire
+
+
+accessoireSupprimer:
+    path: /accessoire/supprimer/{id}
+    controller: App\Controller\AccessoireController::supprimerAccessoire
+
 responsableSupprimer:
     path: /responsable/supprimer/{id}
     controller: App\Controller\ResponsableController::supprimerResponsable
@@ -109,3 +140,33 @@ contratPretAjouter:
 contratPretModifier:
     path: /contratPret/modifier/{id}
     controller: App\Controller\ContratPretController::modifierContratPret
+
+
+inscriptionConsulter:
+    path: /inscription/consulter/{id}
+    controller: App\Controller\InscriptionController::consulterInscription
+
+inscriptionLister:
+    path: /inscription/lister
+    controller: App\Controller\InscriptionController::listerInscription
+
+inscriptionAjouter:
+    path: /inscription/ajouter
+    controller: App\Controller\InscriptionController::ajouterInscription
+
+inscriptionModifier:
+    path: /inscription/modifier/{id}
+    controller: App\Controller\InscriptionController::modifierInscription
+
+inscriptionSupprimer:
+    path: /inscription/supprimer/{id}
+    controller: App\Controller\InscriptionController::supprimerInscription
+
+
+
+
+test:
+    path: /test/test
+    controller : App\Controller\TestController::ajouterTest
+
+
