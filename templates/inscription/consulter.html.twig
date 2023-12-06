@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter une inscription !{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon superbe menu{% endblock %}
+
+{% block body %}
+    <h3>PAGE DE CONSULTATION D'UNE INSCRIPTION</h3>
+    <p>
+    <table >
+
+        <tr><td>Eleve : </td><td>{{inscription.eleve.id}}</td>
+
+        <tr><td>Cours : </td><td>{{inscription.cours.id}}</td>
+
+        <tr><td>Date Inscription: </td><td>{{inscription.dateInscription|date('d/m/Y')}}</td></tr>
+
+    </table>
+
+
+{% endblock %}
+{% block javascripts %}{% endblock %}
