@@ -3,11 +3,11 @@
 namespace App\Controller;
 
 
+
 use App\Entity\Instrument;
 use App\Form\InstrumentModifierType;
 use App\Form\InstrumentType;
 use Symfony\Component\HttpFoundation\Request;
-
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -103,6 +103,23 @@ class InstrumentController extends AbstractController
         }
     }
 
+
+    public function supprimerInstrument(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $instrument = $entityManager->getRepository(Instrument::class)->find($id);
+
+        if (!$instrument) {
+            throw $this->createNotFoundException('Aucun instrument trouvé avec le numéro '.$id);
+        }
+
+        // Suppression du instrument
+        $entityManager->remove($instrument);
+        $entityManager->flush();
+
+        // Redirection vers la liste des instrument après suppression
+        return $this->redirectToRoute('listerInstrument');
+    }
 
 
 }

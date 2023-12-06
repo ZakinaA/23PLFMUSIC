@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Consulter un accessoire !{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+
+
+</head>
+<body>
+<h5>PAGE DE CONSULTATION D'UN ACCESSOIRE</h5>
+<p>
+<table >
+
+
+
+    <tr><td>Instrument :
+    <td><a href="{{ path('InstrumentConsulter', { 'id': accessoires.instrument.id }) }}">{{ accessoires.instrument.nom }}</a></td>
+    <tr><td>Libelle : </td><td>{{accessoires.libelle}} </td></tr>
+
+    <td>
+        <form method="post" action="{{ path('accessoireModifier', {'id': accessoires.id}) }}">
+            <button type="submit">Modifier</button>
+        </form></td>
+
+    <td>
+        <form method="post" action="{{ path('accessoireSupprimer', {'id': accessoires.id}) }}">
+            <button type="submit">Supprimer</button>
+        </form></td>
+
+</table>
+
