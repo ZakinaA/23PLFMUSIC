@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class InstrumentType extends AbstractType
 {
@@ -23,8 +24,9 @@ class InstrumentType extends AbstractType
             ->add('dateAchat', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
-            ])
+                'constraints' => [new Assert\LessThanOrEqual('today'),]])
             ->add('prixAchat')
+
             ->add('typeInstrument', EntityType::class, [
                 'class' => TypeInstrument::class,
                 'choice_label' => 'libelle'
@@ -36,7 +38,7 @@ class InstrumentType extends AbstractType
             ])
 
             ->add('utilisation')
-            ->add('cheminImage')
+
             ->add('couleur', EntityType::class, [
                 'class' => Couleur::class,
                 'choice_label' => 'nom',

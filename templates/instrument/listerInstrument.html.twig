@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Liste des instruments{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -22,21 +22,41 @@ LISTE DES INSTRUMENTS</br>
 
 
 
+
     {% for instruments in instruments %}
         <tr>
-        <td><a href="{{ path('InstrumentConsulter', { 'id': instruments.id }) }}">{{ instruments.numSerie }}</a></td>
+        <td>{{ instruments.numSerie }}</a></td>
         <td>{{ instruments.nom }}</a></td>
         <td>{{ instruments.prixAchat }}€</a></td>
         <td>{{ instruments.dateAchat|date('d/m/Y') }}</td>
         <td>{{ instruments.utilisation}}</td>
         <td>{{instruments.marque.libelle}} </td>
         <td>{{instruments.typeInstrument.libelle}} </td>
+        <td>
+            <form method="post" action="{{ path('instrumentModifier', {'id': instruments.id}) }}">
+                <button type="submit">Modifier</button></form></td>
+
+            <td>
+
+
+            <form method="post" action="{{ path('InstrumentConsulter', {'id': instruments.id}) }}">
+                <button type="submit">Consulter</button></form></td>
+
+
+        </td>
+
+        </tr>
+
+
+
+
 
     {% else %}
         <tr>
             <td>Aucun instrument n'a été trouvé.</td>
         </tr>
     {% endfor %}
+
 </table>
 
 
