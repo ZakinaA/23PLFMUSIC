@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Intervention;
 use App\Entity\Marque;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\TypeInstrument;
 use App\Repository\InstrumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -19,12 +21,15 @@ class Instrument
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\Type('string')]
     private ?string $numSerie = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateAchat = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero]
+    #[Assert\Type('float')]
     private ?float $prixAchat = null;
 
     #[ORM\Column(length: 255)]
@@ -48,6 +53,9 @@ class Instrument
     #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Accessoire::class)]
     private Collection $accessoires;
 
+    #[ORM\OneToMany(mappedBy: 'instrument', targetEntity: Intervention::class)]
+    private Collection $interventions;
+
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -65,7 +73,8 @@ class Instrument
         $this->couleurs = new ArrayCollection();
         $this->accessoires = new ArrayCollection();
         $this->instrumentCouleurs = new ArrayCollection();
-        $this->couleur = new ArrayCollection();
+        $this->interventions = new ArrayCollection();
+
 
     }
 
@@ -74,12 +83,12 @@ class Instrument
         return $this->id;
     }
 
-    public function getNumSerie(): ?int
+    public function getNumSerie(): ?string
     {
         return $this->numSerie;
     }
 
-    public function setNumSerie(int $numSerie): static
+    public function setNumSerie(string $numSerie): static
     {
         $this->numSerie = $numSerie;
 
@@ -212,38 +221,12 @@ class Instrument
         return $this;
     }
 
-    /**
-     * @return Collection<int, InstrumentCouleur>
-     */
-    public function getInstrumentCouleurs(): Collection
-    {
-        return $this->instrumentCouleurs;
-    }
 
-    public function addInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if (!$this->instrumentCouleurs->contains($instrumentCouleur)) {
-            $this->instrumentCouleurs->add($instrumentCouleur);
-            $instrumentCouleur->setInstrument($this);
-        }
 
-        return $this;
-    }
 
-    public function removeInstrumentCouleur(InstrumentCouleur $instrumentCouleur): static
-    {
-        if ($this->instrumentCouleurs->removeElement($instrumentCouleur)) {
-            // set the owning side to null (unless already changed)
-            if ($instrumentCouleur->getInstrument() === $this) {
-                $instrumentCouleur->setInstrument(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
-     * @return Collection<int, Accessoires>
+     * @return Collection<int, Accessoire>
      */
     public function getAccessoires(): Collection
     {
@@ -252,17 +235,17 @@ class Instrument
 
     public function addAccessoire(Accessoire $accessoire): static
     {
-        if (!$this->accessoire->contains($accessoire)) {
-            $this->accessoire->add($accessoire);
+        if (!$this->accessoires->contains($accessoire)) {
+            $this->accessoires->add($accessoire);
             $accessoire->setInstrument($this);
         }
 
         return $this;
     }
 
-    public function removeAccessoire(InstrumentCouleur $accessoire): static
+    public function removeAccessoire(Accessoire $accessoire): static
     {
-        if ($this->accessoire->removeElement($accessoire)) {
+        if ($this->accessoires->removeElement($accessoire)) {
             // set the owning side to null (unless already changed)
             if ($accessoire->getInstrument() === $this) {
                 $accessoire->setInstrument(null);
@@ -280,6 +263,33 @@ class Instrument
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getInterventions(): Collection
+    {
+        return $this->interventions;
+    }
+
+    public function addIntervention(Intervention $intervention): static
+    {
+        if (!$this->interventions->contains($intervention)) {
+            $this->interventions->add($intervention);
+            $intervention->setInstrument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervention(Intervention $intervention): static
+    {
+        if ($this->interventions->removeElement($intervention)) {
+            // set the owning side to null (unless already changed)
+            if ($intervention->getInstrument() === $this) {
+                $intervention->setInstrument(null);
+            }
+        }
 
         return $this;
     }
