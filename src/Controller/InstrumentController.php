@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 
-use App\Entity\Cours;
+
 use App\Entity\Instrument;
 use App\Form\InstrumentModifierType;
 use App\Form\InstrumentType;
 use Symfony\Component\HttpFoundation\Request;
-
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -13,7 +13,8 @@ class InstrumentModifierType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder;
+        $builder
+            ->add('enregistrer', SubmitType::class, array('label' => 'Modification Instrument'));
            }
 
     public function getParent(){

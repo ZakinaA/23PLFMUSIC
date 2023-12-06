@@ -23,12 +23,13 @@
     <tr><td>Type : </td><td>{{instruments.typeInstrument.libelle}} </td> </tr>
     <tr><td>Couleur(s) : </td>
         <td>
-            <ul>-
+            <ul>
                 {% for couleur in instruments.couleur %}
                 <li>{{ couleur.nom }} </li>
                 {% endfor %}
             </ul>
         </td>
+
     </tr>
 
     <td>
