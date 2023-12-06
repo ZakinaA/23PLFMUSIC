@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\ContratPret;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -28,6 +29,7 @@ class ContratPretModifierType extends AbstractType
         'choice_label' => function ($eleve) {
             return $eleve->getNom();   }
     ])
+            ->add('enregistrer', SubmitType::class, array('label' => 'enregistrer les modifications'));
         ;
     }
 
