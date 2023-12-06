@@ -1,32 +1,52 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter une intervention !{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
 
-liste des interventions</br>
-<table>
-    {% for i in pinterventions %}
+<form action="{{ path('interventionAjouter') }}" method="get">
+
+</form>
+<div class="col-12">
+    <div  class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">LISTE DES COURS</h6>
+            <form action="{{ path('interventionAjouter') }}" method="get">
+                <button type="submit" class="btn btn-primary">Ajouter une nouvelle intervention</button>
+            </form>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th scope="col" style="text-align: center;">Professionnel </th>
+                        <th scope="col" style="text-align: center;">Instrument </th>
+                        <th scope="col" style="text-align: center;">Date </th>
+                        <th scope="col" style="text-align: center;">Description </th>
+                        <th scope="col" style="text-align: center;"> Prix</th>
+                        <th scope="col">Modifier</th>
+
+                    </tr>
+
+
         <tr>
-        <td><a href="{{ path('interventionConsulter', { 'id': i.id }) }}"></a></td>
-        <td>{{ i.dateDebut|date('d/m/Y') }}</td>
-        <td>{{ i.dateFin|date('d/m/Y') }}</td>
-        <td>{{ i.descriptif}}</td>
-        <td>{{ i.prix}}</td>
-        <td>{{ i.Professionnel.nom}}</td>
-        <td>{{ i.Instrument.numSerie}}</td>
-    {% else %}
-        <tr>
-            <td>Aucune intervention n'a été trouvé.</td>
+            {% for i in pinterventions %}
+
+            <td style="text-align: center;">{{ i.Professionnel.nom}} {{ i.professionnel.prenom}}</td>
+            <td style="text-align: center;">{{ i.instrument.nom}} {{ i.instrument.numSerie}}</td>
+            <td style="text-align: center;"> Du {{ i.dateDebut|date('d/m/Y') }} au {{ i.dateFin|date('d/m/Y') }}</td>
+            <td style="text-align: center;">{{ i.descriptif}}</td>
+            <td style="text-align: center;">{{ i.prix}}</td>
+            <td>
+                <form action="{{ path('InterventionModifier', {'id': c.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="UPDATE">
+                    <button type="submit" class="btn btn-outline-primary">Modifier</button>
+                </form>
+            </td>
         </tr>
-    {% endfor %}
-</table>
-
-
-</body>
-</html>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -91,9 +91,9 @@ responsableModifier:
     controller: App\Controller\ResponsableController::modifierResponsable
 
 
-instrumentModifier:
-    path: /instrument/modifier/{id}
-    controller: App\Controller\InstrumentController::modifierInstrument
+#instrumentModifier:
+#    path: /instrument/modifier/{id}
+#    controller: App\Controller\InstrumentController::modifierInstrument
 
 instrumentSupprimer:
     path: /instrument/supprimer/{id}
