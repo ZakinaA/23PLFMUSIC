@@ -101,12 +101,12 @@ class Intervention
     }
 
 
-    public function getProfessionnel(): ?professionnel
+    public function getProfessionnel(): ?Professionnel
     {
         return $this->professionnel;
     }
 
-    public function setProfessionnel(?professionnel $professionnel): static
+    public function setProfessionnel(?Professionnel $professionnel): static
     {
         $this->professionnel = $professionnel;
 
