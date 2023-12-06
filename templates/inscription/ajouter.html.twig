@@ -1,7 +1,17 @@
 
-
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
+<div class ="col-sm-12 col-xl-6 ">
+    <div  class="container-fluid pt-4 px-4">
+        <div class =" bg-secondary rounded h-100 p-4">
 {{ form_start(form) }}
 {{ form_widget(form) }}
-
-
 {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

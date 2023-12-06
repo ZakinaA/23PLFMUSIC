@@ -4,6 +4,7 @@ namespace App\Form;
 
 
 use App\Entity\Inscription;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,11 +18,11 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateInscription')
+            ->add('dateInscription', DateTimeType::class, ["attr" => ["class" => "form-select"]])
             ->add('eleve', EntityType::class, [
                 'class' => 'App\Entity\Eleve',
                 'choice_label' => 'nom',
-
+                "attr" => ["class" => "form-select"],
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('e')
                         ->orderBy('e.nom', 'ASC');
@@ -30,6 +31,7 @@ class InscriptionType extends AbstractType
             ->add('cours', EntityType::class, [
                 'class' => 'App\Entity\Cours',
                 'choice_label' => 'libelle',
+                "attr" => ["class" => "form-select"],
                 //'multiple' => true,
                 /*
                 'query_builder' => function (EntityRepository $er) {
@@ -38,7 +40,7 @@ class InscriptionType extends AbstractType
                 },
                 */
             ])
-            ->add('enregistrer', SubmitType::class, ['label' => 'Nouvelle Inscription ']);
+            ->add('enregistrer', SubmitType::class, ['label' => 'Nouvelle Inscription ', "attr" => ["class" => "btn btn-primary"]]);
         ;
     }
 

@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
 
-<h2>LISTE DES ELEVES</h2>
+<div class="col-12">
+    <div  class="container-fluid pt-4 px-4">
+    <div class="bg-secondary rounded h-100 p-4">
+
+<h6 class="mb-4">LISTE DES ELEVES</h6>
 <form action="{{ path('eleveAjouter') }}" method="get">
-    <button type="submit">Ajouter un nouveau eleve</button>
+    <button type="submit" class="btn btn-primary">Ajouter un nouveau eleve</button>
 </form>
-<table border="1">
+<div class="table-responsive">
+<table class="table">
 
 
         <tr>
-            <th>Prenom</th>
-            <th>Nom</th>
-            <th>E-mail</th>
-            <th>Téléphone</th>
-            <th>Consulter</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
+            <th scope="col" style="text-align: center;">Prenom</th>
+            <th scope="col" style="text-align: center;">Nom</th>
+            <th scope="col" style="text-align: center;">E-mail</th>
+            <th scope="col" style="text-align: center;">Téléphone</th>
+            <th scope="col">Consulter</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
 
 
         </tr>
@@ -37,19 +37,19 @@
 
                 <td>
                     <form action="{{ path('eleveConsulter', {'id': e.id}) }}" method="get">
-                        <button type="submit">Consulter</button>
+                        <button type="submit" class="btn btn-outline-primary">Consulter</button>
                     </form>
                 </td>
                 <td>
                     <form action="{{ path('eleveModifier', {'id': e.id}) }}" method="post">
                         <input type="hidden" name="_method" value="UPDATE">
-                        <button type="submit">Modifier</button>
+                        <button type="submit" class="btn btn-outline-primary">Modifier</button>
                     </form>
                 </td>
                 <td>
                     <form action="{{ path('eleveSupprimer', {'id': e.id}) }}" method="post">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit">Supprimer</button>
+                        <button type="submit" class="btn btn-outline-primary">Supprimer</button>
                     </form>
                 </td>
 
@@ -58,4 +58,9 @@
 
     {% endfor %}
 </table>
-
+</div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}
