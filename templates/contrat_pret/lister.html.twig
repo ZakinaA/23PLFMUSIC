@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+<h2>LISTE DES CONTRATS DE PRET</h2>
+<form action="{{ path('contratPretAjouter') }}" method="get">
+    <button type="submit">Ajouter un nouveau Contrat de Prêt</button>
+</form>
+<table border="1">
+
+
+    <tr>
+        <th>Instrument </th>
+        <th> Eleve</th>
+        <th> Responsable</th>
+        <th> Date</th>
+        <th> Etat avant le pret </th>
+        <th> Etat au retout </th>
+        <th> Modifier</th>
+
+
+    </tr>
+
+    {% for c in contratPrets %}
+        <tr>
+
+            <td style="text-align: center;">{{ c.Instrument.nom }}{{ c.Instrument.numSerie }}</td>
+            <td style="text-align: center;">{{ c.Eleve.nom }} {{ c.Eleve.prenom }}</td>
+            <td style="text-align: center;">{% for responsable in c.eleve.responsables %}
+                {{ responsable.nom }} {{ responsable.prenom }} <br>
+                {% endfor %} </td>
+            <td style="text-align: center;"> Du {{ c.dateDebut|date('y-m-d') }} au {{ c.dateFin|date('y-m-d') }}</td>
+            <td style="text-align: center;">{{ c.etatDetailleDebut }} </td>
+            <td style="text-align: center;">{{ c.etatDetailleRetour }} </td>
+
+            <td>
+                <form action="{{ path('contratPretModifier', {'id': c.id}) }}" method="post">
+                    <input type="hidden" name="_method" value="UPDATE">
+                    <button type="submit">Modifier</button>
+                </form>
+            </td>
+        </tr>
+
+    {% endfor %}
+</table>

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un Contrat de Pret!{% endblock %}
+{% block stylesheets %}{% endblock %}
+
+
+{% block header %}Mon menu{% endblock %}
+
+{% block body %}
+<h3>PAGE DE CONSULTATION D'UN Contrat de Pret</h3>
+<p>
+<table>
+    <tr><td>Id : </td><td>{{contratPret.id}} </td></tr>
+
+    <tr><td>Instrument : </td><td>{{contratPret.Instrument.numSerie}}</td>
+
+    <tr><td> Eleve: </td><td>{{contratPret.Eleve.nom}}</td>
+
+    <tr><td> Date debut : </td><td>{{contratPret.DateDebut|date('y-m-d')}}</td></tr>
+
+    <tr><td>Date Fin : </td><td>{{contratPret.DateFin|date('y-m-d')}}</td></tr>
+
+    <tr><td> Attestation d'Assurance : </td><td>{{contratPret.attestationAssurance}}</td></tr>
+
+    <tr><td> etat detaille au debut du contrat : </td><td>{{contratPret.etatDetailleDebut}}</td></tr>
+
+    <tr><td> etat detaille a la  fin du contrat : </td><td>{{contratPret.etatDetailleRetour}}</td></tr>
+</table>
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

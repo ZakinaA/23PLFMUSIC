@@ -78,7 +78,7 @@ class Instrument
 
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -220,8 +220,6 @@ class Instrument
 
         return $this;
     }
-
-
 
 
 
