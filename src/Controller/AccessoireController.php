@@ -17,8 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 
+
 class AccessoireController extends AbstractController
 {
+
+
 
     //#[Route('/accessoire', name: 'app_accessoire')]
     public function index(): Response
@@ -122,6 +125,7 @@ class AccessoireController extends AbstractController
         // Redirection vers la liste des accessoire après suppression
         return $this->redirectToRoute('accessoireLister');
     }
+
 
 
 }
