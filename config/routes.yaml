@@ -160,9 +160,6 @@ inscriptionSupprimer:
     path: /inscription/supprimer/{id}
     controller: App\Controller\InscriptionController::supprimerInscription
 
-
-
-
 test:
     path: /test/test
     controller : App\Controller\TestController::ajouterTest
