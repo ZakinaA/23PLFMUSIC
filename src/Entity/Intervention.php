@@ -101,7 +101,7 @@ class Intervention
     }
 
 
-    public function getProfessionnel(): ?professionnel
+    public function getProfessionnel(): ?Professionnel
     {
         return $this->professionnel;
     }
