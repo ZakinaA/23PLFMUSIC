@@ -29,7 +29,7 @@ class Intervention
     private ?string $prix = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
-    private ?professionnel $professionnel = null;
+    private ?Professionnel $professionnel = null;
 
     #[ORM\ManyToOne(inversedBy: 'interventions')]
     private ?Instrument $instrument = null;
