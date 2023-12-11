@@ -11,11 +11,17 @@
             <table class="table table-borderless">
 
 
-    <tr><td>Id : </td><td>{{instruments.id}} </td></tr>
-    <tr><td>Nom : </td><td>{{instruments.nom}} </td></tr>
-    <tr><td>N°Serie : </td><td>{{instruments.numSerie}} </td></tr>
 
+    <tr><td>Nom : </td><td>{{instruments.nom}} </td></tr>
+
+    <tr><td>N°Serie : </td><td>{{instruments.numSerie}} </td>
+                <td rowspan="9" class="imgEtu">
+                    {% set photo = 'img/instrument/' ~ instruments.cheminImage ~ '.jpg' %}
+                    <span class="zoom"><img src="{{ asset(photo | trans )}}" title="{{ instruments.cheminImage }}" alt="{{ instruments.cheminImage }}" width="300" height="200"/></span>
+                </td>
+    </tr>
     <tr><td>Prix d'achat : </td><td>{{instruments.prixAchat}}€ </td> </tr>
+
     <tr><td>Utilisation : </td><td>{{instruments.utilisation}} </td> </tr>
     <tr><td>Marque : </td><td>{{instruments.marque.libelle}} </td> </tr>
     <tr><td>Type : </td><td>{{instruments.typeInstrument.libelle}} </td> </tr>
@@ -28,11 +34,23 @@
             </ul>
         </td>
 
+                <tr>
+                    <th>Accessoire(s)</th>
+                </tr>
+        {% for accessoire in instruments.Accessoires %}
+<tr>
+                <td>{{ accessoire.libelle }}</td>
+</tr>
+        {% endfor %}
+
+
+
+
     </tr>
 
     <td>
             <form method="post" action="{{ path('instrumentModifier', {'id': instruments.id}) }}">
-                <button type="submit">Modifier</button>
+                <button type="submit" class="btn btn-outline-primary">Modifier</button>
 
 
             </form>
@@ -43,6 +61,33 @@
         </div>
     </div>
 </div>
+
+    <h6>Interventions:</h6>
+    <div class="card-body pt-0">
+        <div class="table-responsive">
+            <table class="table mb-0 table-striped table-sm">
+                <tr>
+                    <th>Date de début :</th>
+                    <th>Date de fin :</th>
+                    <th>Description :</th>
+                    <th>Prix :</th>
+                </tr>
+                {% for intervention in instruments.Interventions %}
+                    <tr>
+                        <td>{{ intervention.dateDebut|date("d/m/Y") }}</td>
+                        <td>{{ intervention.dateFin|date("d/m/Y") }}</td>
+                        <td>{{ intervention.descriptif }}</td>
+                        <td>{{ intervention.prix }}€</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <!-- Button to go back to the list of instruments -->
+    <a href="{{ path('listerInstrument') }}">Liste des instruments</a>
+
+
 
             {% endblock %}
             {% block javascripts %}{% endblock %}
