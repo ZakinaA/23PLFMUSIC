@@ -1,14 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Liste des instruments{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
 
+<form action="{{ path('instrumentAjouter') }}" method="get">
+
+</form>
+
+<div class="col-12">
+    <div  class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">LISTE DES INSTRUMENTS</h6>
+            <form action="{{ path('instrumentAjouter') }}" method="get">
+                <button type="submit" class="btn btn-primary">Ajouter un nouvel instrument</button>
+            </form>
+        </div>
+    </div>
+</div>
 LISTE DES INSTRUMENTS</br>
 <table>
 
@@ -60,5 +69,5 @@ LISTE DES INSTRUMENTS</br>
 </table>
 
 
-</body>
-</html>
+{% endblock %}
+{% block javascripts %}{% endblock %}

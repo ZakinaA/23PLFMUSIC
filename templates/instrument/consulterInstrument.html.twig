@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Consulter un instrument !{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
+<div class ="col-sm-12 col-xl-6 ">
+    <div  class="container-fluid pt-4 px-4">
+        <div class =" bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">PAGE DE CONSULTATION D'UN INSTRUMENT</h6>
 
-
-</head>
-<body>
-<h5>PAGE DE CONSULTATION D'UN INSTRUMENT</h5>
-<p>
-<table >
+            <table class="table table-borderless">
 
 
     <tr><td>Id : </td><td>{{instruments.id}} </td></tr>
@@ -41,5 +39,11 @@
 
 
     </td>
-</table>
+            </table>
+        </div>
+    </div>
+</div>
+
+            {% endblock %}
+            {% block javascripts %}{% endblock %}
 
