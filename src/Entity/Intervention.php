@@ -106,7 +106,7 @@ class Intervention
         return $this->professionnel;
     }
 
-    public function setProfessionnel(?professionnel $professionnel): static
+    public function setProfessionnel(?Professionnel $professionnel): static
     {
         $this->professionnel = $professionnel;
 
