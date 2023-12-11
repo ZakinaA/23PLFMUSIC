@@ -38,7 +38,7 @@
                         {% for c in coursGroupes %}
                                 <tr>
                                         {% if loop.first %}
-                                                <td style="text-align: center;" rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
+                                                <td style="text-align: center;"  rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
                                         {% endif %}
                                         <td scope="row">{{ c.jour.libelle }}</td>
                                         <td style="text-align: center;">{{ c.heureDebut | date('H:i') }}</td>

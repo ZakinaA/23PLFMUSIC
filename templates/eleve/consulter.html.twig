@@ -17,6 +17,51 @@
         <tr><td>E-mail: </td><td>{{eleve.mail}}</td></tr>
 
         <tr><td>Telephone : </td><td>{{eleve.tel}}</td></tr>
+
+        <tr><td>Numéro de rue:  </td><td> {{ eleve.numRue }}</td></tr>
+
+        <tr><td>Rue : </td><td>{{ eleve.rue }}</td></tr>
+
+        <tr><td>Responsables : </td>
+            <td>
+                {% for responsable in eleve.responsables %}
+                {{ responsable.prenom ~ " " ~ responsable.nom }}
+                {% else %}
+                Pas de responsable
+                {% endfor %}
+            </td></tr>
+        <tr><td>Cours : </td>
+            <td>
+                <table class="table">
+            <th scope="col" style="text-align: center;">Cours libelle</th>
+            <th scope="col" style="text-align: center;">Type d'instrument</th>
+            <th scope="col" style="text-align: center;">Jour</th>
+            <th scope="col" style="text-align: center;">Heure debut</th>
+            <th scope="col" style="text-align: center;">Heure Fin</th>
+                {% for inscription in eleve.inscriptions %}
+                    <tr>
+                    <td>
+                    {{ inscription.cours.libelle }}
+                    </td>
+                        <td>
+                        {{ inscription.cours.typeInstrument.libelle }}
+                        </td>
+                        <td>
+                        {{ inscription.cours.jour.libelle }}
+                        </td>
+                        <td>
+                            {{ inscription.cours.heureDebut| date('H:i') }}
+                        </td>
+                        <td>
+                            {{ inscription.cours.heureFin| date('H:i') }}
+                        </td>
+                </tr>
+                {% else %}
+                    Pas de cours inscrits
+                {% endfor %}
+    </table>
+            </td></tr>
+
     </table>
         </div>
     </div>

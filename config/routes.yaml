@@ -160,6 +160,10 @@ inscriptionSupprimer:
     path: /inscription/supprimer/{id}
     controller: App\Controller\InscriptionController::supprimerInscription
 
+mentionLégal:
+  path: /mentionlegale
+  controller: App\Controller\IndexController::consulterMentionLégale
+
 test:
     path: /test/test
     controller : App\Controller\TestController::ajouterTest
