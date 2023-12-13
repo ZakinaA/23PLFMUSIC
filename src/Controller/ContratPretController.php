@@ -40,8 +40,7 @@ class ContratPretController extends AbstractController
     {
         $repository = $doctrine->getRepository(ContratPret::class);
 
-
-        $contratPrets = $repository->findAll();
+        $contratPrets = $repository->findBy([], ['instrument' => 'ASC']);
 
         return $this->render('contrat_pret/lister.html.twig', [
             'contratPrets' => $contratPrets,

@@ -91,6 +91,8 @@ responsableModifier:
     controller: App\Controller\ResponsableController::modifierResponsable
 
 
+
+
 instrumentSupprimer:
     path: /instrument/supprimer/{id}
     controller: App\Controller\InstrumentController::supprimerInstrument
