@@ -8,9 +8,11 @@
         <div class="bg-secondary rounded h-100 p-4">
 
             <h6 class="mb-4">LISTE DES INSCRIPTIONS</h6>
+            {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
 <form action="{{ path('inscriptionAjouter') }}" method="get">
     <button type="submit" class="btn btn-primary">Ajouter une nouvelle inscription</button>
 </form>
+            {% endif %}
     <div class="table-responsive">
         <table class="table">
 
@@ -20,8 +22,10 @@
         <th scope="col" style="text-align: center;">Cours</th>
         <th scope="col" style="text-align: center;">Date Inscription</th>
         <th scope="col">Consulter</th>
+        {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
         <th scope="col">Modifier</th>
         <th scope="col">Supprimer</th>
+        {% endif %}
 
 
     </tr>
@@ -37,6 +41,7 @@
                     <button type="submit" class="btn btn-outline-primary">Consulter</button>
                 </form>
             </td>
+            {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
             <td>
                 <form action="{{ path('inscriptionModifier', {'id': i.id}) }}" method="post">
                     <input type="hidden" name="_method" value="UPDATE">
@@ -49,6 +54,7 @@
                     <button type="submit" class="btn btn-outline-primary">Supprimer</button>
                 </form>
             </td>
+            {% endif %}
 
 
         </tr>
