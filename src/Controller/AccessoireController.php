@@ -49,15 +49,24 @@ class AccessoireController extends AbstractController
             'accessoires' => $accessoires,]);
     }
 
-    public function listerAccessoire(ManagerRegistry $doctrine)
+    public function listerAccessoire(ManagerRegistry $doctrine, Request $request)
     {
         $repository = $doctrine->getRepository(Accessoire::class);
+        $sortField = $request->query->get('sort', 'libelle');
+        $sortOrder = $request->query->get('order', 'asc');
+        $queryBuilder = $repository->createQueryBuilder('i');
 
+        $queryBuilder
+            ->leftJoin('i.instrument', 't');
 
-        $accessoires = $repository->findAll();
+        $queryBuilder->orderBy("i.{$sortField}", $sortOrder);
+
+        $accessoires = $queryBuilder->getQuery()->getResult();
 
         return $this->render('accessoire/listerAccessoire.html.twig', [
             'accessoires' => $accessoires,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
         ]);
     }
 

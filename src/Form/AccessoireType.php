@@ -23,7 +23,7 @@ class AccessoireType extends AbstractType
                 'choice_label' => 'nom'
             ])
 
-            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel Instrument', "attr" => ["class" => "btn btn-primary"]))
+            ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel accessoire', "attr" => ["class" => "btn btn-primary"]))
 
         ;
     }
