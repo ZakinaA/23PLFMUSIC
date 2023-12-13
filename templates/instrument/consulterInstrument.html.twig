@@ -43,26 +43,22 @@
 </tr>
         {% endfor %}
 
-
-
-
-    </tr>
-
     <td>
             <form method="post" action="{{ path('instrumentModifier', {'id': instruments.id}) }}">
                 <button type="submit" class="btn btn-outline-primary">Modifier</button>
-
-
             </form>
-
-
     </td>
-            </table>
-        </div>
-    </div>
-</div>
 
-    <h6>Interventions:</h6>
+    <td>
+            <form method="post" action="{{ path('listerInstrument', {'id': instruments.id}) }}">
+                 <button type="submit" class="btn btn-outline-primary">Liste des instruments</button>
+            </form>
+    </td>
+
+            </table>
+
+
+    <h5>Interventions:</h5>
     <div class="card-body pt-0">
         <div class="table-responsive">
             <table class="table mb-0 table-striped table-sm">
@@ -77,15 +73,17 @@
                         <td>{{ intervention.dateDebut|date("d/m/Y") }}</td>
                         <td>{{ intervention.dateFin|date("d/m/Y") }}</td>
                         <td>{{ intervention.descriptif }}</td>
-                        <td>{{ intervention.prix }}€</td>
+                        <td>{{ intervention.prix }} €</td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
 
-    <!-- Button to go back to the list of instruments -->
-    <a href="{{ path('listerInstrument') }}">Liste des instruments</a>
+        </div>
+    </div>
+</div>
+
 
 
 

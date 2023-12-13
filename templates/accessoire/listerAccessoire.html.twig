@@ -17,8 +17,8 @@
 
 
                         <tr>
-                            <th scope="col" style="text-align: center;">Libelle</th>
-                            <th scope="col" style="text-align: center;">Instrument</th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('accessoireLister', {'sort': 'libelle', 'order': (sortField == 'libelle' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Libelle</a></th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('accessoireLister', {'sort': 'instrument', 'order': (sortField == 'instrument' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Instrument </a> </th>
                             <th scope="col">Modifier</th>
                             <th scope="col">Supprimer</th>
 
