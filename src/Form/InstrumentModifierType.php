@@ -14,13 +14,13 @@ class InstrumentModifierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('enregistrer', SubmitType::class, array('label' => 'Modifier l/instrument', "attr" => ["class" => "btn btn-primary"]));
-           }
+            ->add('enregistrer', SubmitType::class, array('label' => 'Modifier l\instrument', "attr" => ["class" => "btn btn-primary"]));
+    }
+
 
     public function getParent(){
         return InstrumentType::class;
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
