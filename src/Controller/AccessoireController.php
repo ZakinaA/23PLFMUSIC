@@ -49,8 +49,9 @@ class AccessoireController extends AbstractController
             'accessoires' => $accessoires,]);
     }
 
-    public function listerAccessoire(ManagerRegistry $doctrine, Request $request)
+    public function listerAccessoire(ManagerRegistry $doctrine, Request $request) : Response
     {
+        $searchTerm = $request->query->get('search');
         $repository = $doctrine->getRepository(Accessoire::class);
         $sortField = $request->query->get('sort', 'libelle');
         $sortOrder = $request->query->get('order', 'asc');
@@ -58,6 +59,14 @@ class AccessoireController extends AbstractController
 
         $queryBuilder
             ->leftJoin('i.instrument', 't');
+
+
+
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('i.libelle LIKE :searchTerm OR t.nom LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
 
         $queryBuilder->orderBy("i.{$sortField}", $sortOrder);
 
