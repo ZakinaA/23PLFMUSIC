@@ -49,7 +49,6 @@ class InstrumentType extends AbstractType
                 "attr" => ["class" => "form-select"],
                 'choice_label' => 'nom',
                 'multiple' => true,
-                'expanded' => true,
             ])
             ->add('enregistrer', SubmitType::class, array('label' => 'Nouvel Instrument', "attr" => ["class" => "btn btn-primary"]))
 

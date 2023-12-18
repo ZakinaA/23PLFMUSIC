@@ -27,10 +27,14 @@ class InstrumentController extends AbstractController
         $repository = $doctrine->getRepository(Instrument::class);
         $queryBuilder = $repository->createQueryBuilder('i');
 
+        $queryBuilder
+            ->leftJoin('i.marque', 'm')
+            ->leftJoin('i.typeInstrument', 'ti');
+
 
         if ($searchTerm) {
             $queryBuilder
-                ->andWhere('i.numSerie LIKE :searchTerm OR m.libelle LIKE :searchTerm OR ti.libelle LIKE :searchTerm')
+                ->andWhere('i.numSerie LIKE :searchTerm OR i.nom LIKE :searchTerm OR m.libelle LIKE :searchTerm OR ti.libelle LIKE :searchTerm')
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 

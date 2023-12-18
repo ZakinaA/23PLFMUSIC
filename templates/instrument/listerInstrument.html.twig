@@ -4,6 +4,12 @@
 {% block header %}Mon superbe menu{% endblock %}
 {% block body %}
 
+    <form method="get" action="{{ path('listerInstrument') }}" aria-label="Text input with radio button">
+        <label for="search">Rechercher :</label>
+        <input type="text" id="search" name="search" value="{{ app.request.query.get('search') }}">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
 
     <div class="col-12">
         <div  class="container-fluid pt-4 px-4">
