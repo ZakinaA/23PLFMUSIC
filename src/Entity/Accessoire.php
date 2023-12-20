@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AccessoireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,6 +16,7 @@ class Accessoire
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\Type('string')]
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
@@ -22,10 +24,6 @@ class Accessoire
     #[ORM\ManyToOne(inversedBy: 'accessoires')]
     private ?Instrument $instrument = null;
 
-    public function __construct()
-    {
-        $this->instruments = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

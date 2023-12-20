@@ -17,8 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 
+
 class AccessoireController extends AbstractController
 {
+
+
 
     //#[Route('/accessoire', name: 'app_accessoire')]
     public function index(): Response
@@ -46,15 +49,33 @@ class AccessoireController extends AbstractController
             'accessoires' => $accessoires,]);
     }
 
-    public function listerAccessoire(ManagerRegistry $doctrine)
+    public function listerAccessoire(ManagerRegistry $doctrine, Request $request) : Response
     {
+        $searchTerm = $request->query->get('search');
         $repository = $doctrine->getRepository(Accessoire::class);
+        $sortField = $request->query->get('sort', 'libelle');
+        $sortOrder = $request->query->get('order', 'asc');
+        $queryBuilder = $repository->createQueryBuilder('i');
+
+        $queryBuilder
+            ->leftJoin('i.instrument', 't');
 
 
-        $accessoires = $repository->findAll();
+
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('i.libelle LIKE :searchTerm OR t.nom LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        $queryBuilder->orderBy("i.{$sortField}", $sortOrder);
+
+        $accessoires = $queryBuilder->getQuery()->getResult();
 
         return $this->render('accessoire/listerAccessoire.html.twig', [
             'accessoires' => $accessoires,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
         ]);
     }
 
@@ -122,6 +143,7 @@ class AccessoireController extends AbstractController
         // Redirection vers la liste des accessoire après suppression
         return $this->redirectToRoute('accessoireLister');
     }
+
 
 
 }
