@@ -4,11 +4,11 @@ controllers:
 
 
 intervention:
-    path: /ele/intervention/lister
+    path: /gestionnaire/intervention/lister
     controller: App\Controller\InterventionController::listerIntervention
 
 interventionConsulter:
-    path: /ele/intervention/consulter/{id}
+    path: /gestionnaire/intervention/consulter/{id}
     controller: App\Controller\InterventionController::consulterIntervention
 
 interventionAjouter:

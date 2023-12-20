@@ -42,6 +42,12 @@ class ContratPretController extends AbstractController
 
         $contratPrets = $repository->findBy([], ['instrument' => 'ASC']);
 
+//        if ($this->isGranted('ROLE_ADMIN',"ROLE_GEST")){
+
+//        }else{
+
+//        }
+
         return $this->render('contrat_pret/lister.html.twig', [
             'contratPrets' => $contratPrets,
         ]);
