@@ -20,7 +20,8 @@ class AccessoireModifierType extends AbstractType
         $builder
 
 
-                ->add('enregistrer', SubmitType::class, ['label' => 'Modification Accessoire']);
+            ->add('enregistrer', SubmitType::class, array('label' => 'Modifier accessoire', "attr" => ["class" => "btn btn-primary"]));
+
     }
 
 
