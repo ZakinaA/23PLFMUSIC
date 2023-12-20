@@ -20,9 +20,9 @@
 
         <tr><td>Jour : {{ cours.jour.libelle }}</td></tr>
 
-        <tr><td>Heure début : {{ cours.heureDebut|date("h:i") }}</td></tr>
+        <tr><td>Heure début : {{ cours.heureDebut| date('H:i') }}</td></tr>
 
-        <tr><td>Heure fin : {{ cours.heureFin|date("h:i") }}</td></tr>
+        <tr><td>Heure fin : {{ cours.heureFin| date('H:i') }}</td></tr>
     </table>
 
     <h6 class="mb-4">ÉLÈVES INSCRITS </h6>

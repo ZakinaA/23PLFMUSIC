@@ -6,6 +6,7 @@ use App\Repository\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EleveRepository::class)]
 class Eleve
@@ -22,9 +23,15 @@ class Eleve
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"Le nombre de places doit être supérieur à 0")]
     private ?int $numRue = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        notInRangeMessage: "le code postal doit être entre 10000 et 99999",
+        min : 10000,
+        max : 99999
+    )]
     private ?int $copos = null;
 
     #[ORM\Column(length: 255)]
