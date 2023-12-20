@@ -37,8 +37,6 @@ class Eleve
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column]
-    private ?int $tel = null;
 
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
@@ -54,6 +52,9 @@ class Eleve
 
     #[ORM\ManyToMany(targetEntity: Responsable::class, inversedBy: 'eleves')]
     private Collection $responsables;
+
+    #[ORM\Column(length: 14, nullable: true)]
+    private ?string $tel = null;
 
     public function __construct()
     {
@@ -127,17 +128,7 @@ class Eleve
         return $this;
     }
 
-    public function getTel(): ?int
-    {
-        return $this->tel;
-    }
 
-    public function setTel(int $tel): static
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
 
     public function getMail(): ?string
     {
@@ -243,6 +234,18 @@ class Eleve
                 $contratPret->setEleve(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }
