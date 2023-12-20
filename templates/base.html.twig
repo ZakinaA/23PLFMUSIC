@@ -20,7 +20,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DarkPan - Bootstrap 5 Admin Template</title>
+    <title>PLFMUSIC</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -48,7 +48,7 @@
     <link href="/23PLFMUSIC/public/design/css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
 <div class="container-fluid position-relative d-flex p-0">
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -63,17 +63,21 @@
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-secondary navbar-dark">
             <a href="{{ path("coursLister") }}" class="navbar-brand mx-4 mb-3">
-                <h3 class="text-primary">PLFMUSIC</h3>
+                <h3 class="text-primary">23PLFMUSIC</h3>
             </a>
             <div class="d-flex align-items-center ms-4 mb-4">
                 <div class="position-relative">
 {#                    <img class="rounded-circle" src="/23PLFMUSIC/public/design/img/user.jpg" alt="" style="width: 40px; height: 40px;">#}
 {#                    <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>#}
                 </div>
+
                 <div class="ms-3">
-                    <h6 class="mb-0">Jhon Doe</h6>
+                    <h6 class="mb-0">John Doe</h6>
                     <span>Admin</span>
                 </div>
+
+
+
             </div>
             <div class="navbar-nav w-100">
                 <a href=""{{ path("coursLister") }}"" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
@@ -85,10 +89,15 @@
                         <a href="{{ path("inscriptionLister") }}" class="dropdown-item">Inscriptions</a>
                     </div>
                 </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Instruments</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="{{ path("listerInstrument") }}" class="dropdown-item">Instruments</a>
+                        <a href="{{ path("accessoireLister") }}" class="dropdown-item">Accessoires</a></div>
                 <a href="{{ path("coursLister") }}" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Cours</a>
-                <a href="{{ path("eleveLister") }}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>aze</a>
-                <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>azee</a>
-                <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                <a href="{{ path("contratPretLister") }}" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>ContratPret</a>
+
+
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                     <div class="dropdown-menu bg-transparent border-0">
@@ -98,9 +107,31 @@
                         <a href="blank.html" class="dropdown-item">Blank Page</a>
                     </div>
                 </div>
+
+                <a href="{{ path("listerInstrument") }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Instrument</a>
+                <a href="{{ path("intervention") }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Intervention</a>
+                <a href="{{ path("accessoireLister") }}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Accessoires</a>
+                {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path("app_register") }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Register</a>
+                {% endif %}
+
+
+                {#
+#}
+{#                <div class="nav-item dropdown">#}
+{#                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>#}
+{#                    <div class="dropdown-menu bg-transparent border-0">#}
+{#                        <a href="signin.html" class="dropdown-item">Sign In</a>#}
+{#                        <a href="signup.html" class="dropdown-item">Sign Up</a>#}
+{#                        <a href="404.html" class="dropdown-item">404 Error</a>#}
+{#                        <a href="blank.html" class="dropdown-item">Blank Page</a>#}
+{#                    </div>#}
+{#                </div>#}
+
             </div>
         </nav>
     </div>
+
     <!-- Sidebar End -->
 
 
@@ -114,9 +145,7 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            <form class="d-none d-md-flex ms-4">
-                <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-            </form>
+
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
 
@@ -157,12 +186,12 @@
 
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <span class="d-none d-lg-inline-flex">John Doe</span>
+                        <span class="d-none d-lg-inline-flex">{{ app.user.email }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                        <a href="#" class="dropdown-item">My Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Log Out</a>
+                       <!-- <a href="#" class="dropdown-item">My Profile</a>
+                        <a href="#" class="dropdown-item">Settings</a> -->
+                        <a href="{{ path("app_logout") }}" class="dropdown-item">Déconnexion</a>
                     </div>
                 </div>
             </div>
@@ -170,12 +199,36 @@
         <!-- Navbar End -->
         {% block body %}{% endblock %}
 
+
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+        <!-- Footer Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary rounded-top p-4">
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-center text-sm-start">
+                        &copy; <a href = "{{ path("mentionLégal") }}">Mention Légales </a>, All Right Reserved.
+                    </div>
+                    <div class="col-12 col-sm-6 text-center text-sm-end">
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                        <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
     </div>
     <!-- Content End -->
 
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
 </div>
 
 <!-- JavaScript Libraries -->
@@ -191,6 +244,7 @@
 
 <!-- Template Javascript -->
 <script src="/23PLFMUSIC/public/design/js/main.js"></script>
+
 </body>
 
 </html>

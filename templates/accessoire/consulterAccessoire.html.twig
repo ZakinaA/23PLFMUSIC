@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Consulter un accessoire !{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un cours!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
+<div class ="col-sm-12 col-xl-6 ">
+    <div  class="container-fluid pt-4 px-4">
+        <div class =" bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">PAGE DE CONSULTATION D'UN ACCESSOIRE</h6>
 
+            <table class="table table-borderless">
 
-</head>
-<body>
-<h5>PAGE DE CONSULTATION D'UN ACCESSOIRE</h5>
-<p>
-<table >
 
 
 
@@ -20,13 +19,32 @@
 
     <td>
         <form method="post" action="{{ path('accessoireModifier', {'id': accessoires.id}) }}">
-            <button type="submit">Modifier</button>
-        </form></td>
+            <button type="submit" class="btn btn-outline-primary">Modifier</button>
+
+
+        </form>
+    </td>
 
     <td>
-        <form method="post" action="{{ path('accessoireSupprimer', {'id': accessoires.id}) }}">
-            <button type="submit">Supprimer</button>
-        </form></td>
+                    <form method="post" action="{{ path('accessoireSupprimer', {'id': accessoires.id}) }}">
+                        <button type="submit" class="btn btn-outline-primary">Supprimer</button>
 
-</table>
+
+        </form>
+    </td>
+                <td>
+                    <form method="post" action="{{ path('accessoireLister', {'id': accessoires.id}) }}">
+                        <button type="submit" class="btn btn-outline-primary">Liste des accessoires</button>
+                    </form>
+                </td>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+            {% block javascripts %}{% endblock %}
 

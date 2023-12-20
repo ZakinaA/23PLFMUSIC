@@ -17,15 +17,36 @@ class InstrumentController extends AbstractController
 {
 
     #[Route('/instrument/lister', name: 'listerInstrument')]
-    public function listerInstrument(ManagerRegistry $doctrine)
+    public function listerInstrument(Request $request, ManagerRegistry $doctrine) : Response
     {
+
+        $searchTerm = $request->query->get('search');
+        $sortField = $request->query->get('sort', 'numSerie');
+        $sortField = $request->query->get('sort', 'nom');
+        $sortOrder = $request->query->get('order', 'asc');
         $repository = $doctrine->getRepository(Instrument::class);
+        $queryBuilder = $repository->createQueryBuilder('i');
+
+        $queryBuilder
+            ->leftJoin('i.marque', 'm')
+            ->leftJoin('i.typeInstrument', 'ti');
 
 
-        $instruments = $repository->findAll();
+        if ($searchTerm) {
+            $queryBuilder
+                ->andWhere('i.numSerie LIKE :searchTerm OR i.nom LIKE :searchTerm OR m.libelle LIKE :searchTerm OR ti.libelle LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        $queryBuilder->orderBy("i.{$sortField}", $sortOrder);
+
+        $instruments = $queryBuilder->getQuery()->getResult();
+
 
         return $this->render('instrument/listerInstrument.html.twig', [
             'instruments' => $instruments,
+            'sortField' => $sortField,
+            'sortOrder' => $sortOrder,
         ]);
     }
 

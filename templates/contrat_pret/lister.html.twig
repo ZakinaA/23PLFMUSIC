@@ -1,29 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}liste des contrats de pret!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
 
-<h2>LISTE DES CONTRATS DE PRET</h2>
 <form action="{{ path('contratPretAjouter') }}" method="get">
-    <button type="submit">Ajouter un nouveau Contrat de Prêt</button>
+
 </form>
-<table border="1">
+<div class="col-12">
+    <div  class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded h-100 p-4">
+            <h6 class="mb-4">LISTE DES CONTRATS DE PRET </h6>
+            <form action="{{ path('contratPretAjouter') }}" method="get">
+                <button type="submit" class="btn btn-primary">Ajouter un nouveau contrat de pret</button>
+            </form>
+            <div class="table-responsive">
+                <table class="table">
 
 
     <tr>
-        <th>Instrument </th>
-        <th> Eleve</th>
-        <th> Responsable</th>
-        <th> Date</th>
-        <th> Etat avant le pret </th>
-        <th> Etat au retout </th>
-        <th> Modifier</th>
+        <th scope="col" style="text-align: center;">Instrument </th>
+        <th scope="col" style="text-align: center;"> Eleve</th>
+        <th scope="col" style="text-align: center;"> Responsable</th>
+        <th scope="col" style="text-align: center;"> Date</th>
+        <th scope="col" style="text-align: center;"> Etat avant le pret </th>
+        <th scope="col" style="text-align: center;"> Etat au retout </th>
+        <th scope="col"> Modifier</th>
 
 
     </tr>
@@ -43,10 +45,16 @@
             <td>
                 <form action="{{ path('contratPretModifier', {'id': c.id}) }}" method="post">
                     <input type="hidden" name="_method" value="UPDATE">
-                    <button type="submit">Modifier</button>
+                    <button type="submit" class="btn btn-outline-primary">Modifier</button>
                 </form>
             </td>
         </tr>
 
     {% endfor %}
 </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

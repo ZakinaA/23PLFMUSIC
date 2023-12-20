@@ -1,64 +1,73 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Liste des instruments{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-</head>
-<body>
-{% block body %}{% endblock %}
+{% extends 'base.html.twig' %}
+{% block title %}Consulter un instrument!{% endblock %}
+{% block stylesheets %}{% endblock %}
+{% block header %}Mon superbe menu{% endblock %}
+{% block body %}
+
+    <form method="get" action="{{ path('listerInstrument') }}" aria-label="Text input with radio button">
+        <label for="search">Rechercher :</label>
+        <input type="text" id="search" name="search" value="{{ app.request.query.get('search') }}">
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+    </form>
+
+
+    <div class="col-12">
+        <div  class="container-fluid pt-4 px-4">
+            <div class="bg-secondary rounded h-100 p-4">
+
+                <h6 class="mb-4">LISTE DES ELEVES</h6>
+                <form action="{{ path('instrumentAjouter') }}" method="get">
+                    <button type="submit" class="btn btn-primary">Ajouter un nouvel instrument</button>
+                </form>
+                <div class="table-responsive">
+                    <table class="table">
+
+                        <tr>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'numSerie', 'order': (sortField == 'numSerie' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">N° Serie</a></th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'nom', 'order': (sortField == 'nom' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Nom </a> </th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'dateAchat', 'order': (sortField == 'dateAchat' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Date d'achat </a> </th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'prixAchat', 'order': (sortField == 'prixAchat' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Prix d'achat </a> </th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'utilisation', 'order': (sortField == 'utilisation' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Utilisation </a> </th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'marque', 'order': (sortField == 'marque' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Marque</a></th>
+                            <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'typeInstrument', 'order': (sortField == 'typeInstrument' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Type</a></th>
+                            <th scope="col">Consulter</th>
+                            <th scope="col">Modifier</th>
+                        </tr>
+
+
+
+
+                        {% for instruments in instruments %}
+                            <tr>
+                                <td style="text-align: center;">{{ instruments.numSerie }}</td>
+                                <td style="text-align: center;">{{ instruments.nom }}</td>
+                                <td style="text-align: center;">{{ instruments.dateAchat|date('d/m/Y') }}</td>
+                                <td style="text-align: center;">{{ instruments.prixAchat }} €</td>
+                                <td style="text-align: center;">{{ instruments.utilisation}}</td>
+                                <td style="text-align: center;">{{ instruments.marque.libelle}} </td>
+                                <td style="text-align: center;">{{ instruments.typeInstrument.libelle}} </td>
+
+                                <td>
+                                    <form action="{{ path('InstrumentConsulter', {'id': instruments.id}) }}" method="get">
+                                        <button type="submit" class="btn btn-outline-primary">Consulter</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{{ path('instrumentModifier', {'id': instruments.id}) }}" method="post">
+                                        <input type="hidden" name="_method" value="UPDATE">
+                                        <button type="submit" class="btn btn-outline-primary">Modifier</button>
+                                    </form>
+                                </td>
+
+
+
+                            </tr>
+
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 {% block javascripts %}{% endblock %}
-
-LISTE DES INSTRUMENTS</br>
-<table>
-
-    <th>Numéro de Série</th>
-    <th> Nom </th>
-    <th>Prix d'Achat</th>
-    <th>Date d'achat</th>
-    <th>Utilisation</th>
-    <th>Marque</th>
-    <th>Type</th>
-
-
-
-
-    {% for instruments in instruments %}
-        <tr>
-        <td>{{ instruments.numSerie }}</a></td>
-        <td>{{ instruments.nom }}</a></td>
-        <td>{{ instruments.prixAchat }}€</a></td>
-        <td>{{ instruments.dateAchat|date('d/m/Y') }}</td>
-        <td>{{ instruments.utilisation}}</td>
-        <td>{{instruments.marque.libelle}} </td>
-        <td>{{instruments.typeInstrument.libelle}} </td>
-        <td>
-            <form method="post" action="{{ path('instrumentModifier', {'id': instruments.id}) }}">
-                <button type="submit">Modifier</button></form></td>
-
-            <td>
-
-
-            <form method="post" action="{{ path('InstrumentConsulter', {'id': instruments.id}) }}">
-                <button type="submit">Consulter</button></form></td>
-
-
-        </td>
-
-        </tr>
-
-
-
-
-
-    {% else %}
-        <tr>
-            <td>Aucun instrument n'a été trouvé.</td>
-        </tr>
-    {% endfor %}
-
-</table>
-
-
-</body>
-</html>
