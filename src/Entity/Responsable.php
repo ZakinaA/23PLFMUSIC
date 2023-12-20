@@ -40,14 +40,15 @@ class Responsable
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
-    #[ORM\Column]
-    private ?int $tel = null;
 
     #[ORM\Column(length: 255)]
     private ?string $mail = null;
 
     #[ORM\ManyToMany(targetEntity: Eleve::class, mappedBy: 'responsables')]
     private Collection $eleves;
+
+    #[ORM\Column(length: 14, nullable: true)]
+    private ?string $tel = null;
 
     public function __construct()
     {
@@ -131,17 +132,7 @@ class Responsable
         return $this;
     }
 
-    public function getTel(): ?int
-    {
-        return $this->tel;
-    }
 
-    public function setTel(int $tel): static
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
 
     public function getMail(): ?string
     {
@@ -178,6 +169,18 @@ class Responsable
         if ($this->eleves->removeElement($elefe)) {
             $elefe->removeResponsable($this);
         }
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }

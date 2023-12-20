@@ -24,7 +24,7 @@ class EleveModifierType extends AbstractType
             ->add('rue', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('copos', NumberType::class , ["attr" => ["class" => "form-control"]])
             ->add('ville', TextType::class , ["attr" => ["class" => "form-control"]])
-            ->add('tel', NumberType::class , ["attr" => ["class" => "form-control"]])
+            ->add('tel', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('mail', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('responsables', EntityType::class, [
                 'class' => 'App\Entity\Responsable',
