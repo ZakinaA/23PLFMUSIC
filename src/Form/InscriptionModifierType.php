@@ -30,15 +30,11 @@ class InscriptionModifierType extends AbstractType
                 ])
                 ->add('cours', EntityType::class, [
                     'class' => 'App\Entity\Cours',
-                    'choice_label' => 'libelle',
-                    "attr" => ["class" => "form-select"],
-                    //'multiple' => true,
-                    /*
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('r')
-                            ->orderBy('r.prenom', 'ASC');
+                    'choice_label' => function ($inscrit){
+                        return $inscrit->getTypeCours()->getLibelle().'  '.$inscrit->getJour()->getLibelle().'  '.$inscrit->getTypeInstrument()->getLibelle();
                     },
-                    */
+                    "attr" => ["class" => "form-select"],
+
                 ])
                 ->add('enregistrer', SubmitType::class, ['label' => 'Modifier Inscription ', "attr" => ["class" => "btn btn-primary"]]);
         ;
