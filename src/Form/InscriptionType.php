@@ -19,7 +19,7 @@ class InscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateInscription', DateType::class, [ 'widget'=>'single_text','format' => 'yyyy-MM-dd' , "attr" => ["class" => "form-select"] ])
+            ->add('dateInscription', DateType::class, [ 'widget'=>'single_text','format' => 'yyyy-MM-dd' , "attr" => ["class" => "form-select"] , 'data'=> new \dateTime(),])
             ->add('eleve', EntityType::class, [
                 'class' => 'App\Entity\Eleve',
                 'choice_label' => 'nom',
@@ -31,15 +31,10 @@ class InscriptionType extends AbstractType
             ])
             ->add('cours', EntityType::class, [
                 'class' => 'App\Entity\Cours',
-                'choice_label' => 'libelle',
-                "attr" => ["class" => "form-select"],
-                //'multiple' => true,
-                /*
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('r')
-                        ->orderBy('r.prenom', 'ASC');
+                'choice_label' => function ($inscrit){
+                return $inscrit->getTypeCours()->getLibelle().'  '.$inscrit->getJour()->getLibelle().'  '.$inscrit->getTypeInstrument()->getLibelle();
                 },
-                */
+                "attr" => ["class" => "form-select"],
             ])
             ->add('enregistrer', SubmitType::class, ['label' => 'Nouvelle Inscription ', "attr" => ["class" => "btn btn-primary"]]);
         ;

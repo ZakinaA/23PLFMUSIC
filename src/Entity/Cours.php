@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
 class Cours
@@ -17,21 +18,54 @@ class Cours
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+
     private ?string $libelle = null;
 
     #[ORM\Column]
+    #[Assert\Regex(pattern : "/^\d+$/", message:"Veuillez saisir uniquement des chiffres.")]
+    #[Assert\Range(
+        notInRangeMessage: "l'age ne doit pas être plus petit que 3 ans et plus grand que 99 ans",
+        min : 3,
+        max : 99
+    )]
+    #[Assert\Expression('this.getAgeMini() < this.getAgeMaxi()',
+    message : "L'age minimun ne peux pas être supérieur à l'age maximum.")]
     private ?int $ageMini = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Expression('this.getHeureDebut() < this.getHeureFin()',
+    message : "L'heure de début ne peux pas être supérieur a l'heure de fin.")]
+    #[Assert\LessThan('07:00',
+    message: "L'heure de début doit être supérieur à 7h")]
     private ?\DateTimeInterface $heureDebut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Expression('this.getHeureDebut() < this.getHeureFin()',
+        message : "L'heure de fin ne peux pas être antérieur a l'heure de debut.")]
+    #[Assert\LessThan('07:00',
+        message: "L'heure de fin doit être supérieur à 7h")]
     private ?\DateTimeInterface $heureFin = null;
 
     #[ORM\Column]
+    #[Assert\Positive(message:"Le nombre de places doit être supérieur à 0")]
+    #[Assert\Range(
+        notInRangeMessage:"le nombre de place ne peut pas être supérieur à 25 et inférieur à 1",
+        min : 1,
+        max : 25
+    )]
     private ?int $nbPlaces = null;
 
     #[ORM\Column]
+    #[Assert\Regex(pattern : "/^\d+$/", message:"Veuillez saisir uniquement des chiffres.")]
+    #[Assert\Range(
+        notInRangeMessage: "l'age ne doit pas être plus petit que 3 ans et plus grand que 99 ans",
+        min : 3,
+        max : 99
+    )]
+    #[Assert\Expression('this.getAgeMini() < this.getAgeMaxi()',
+        message : "L'age minimun ne peux pas être supérieur à l'age maximum.")]
     private ?int $ageMaxi = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]

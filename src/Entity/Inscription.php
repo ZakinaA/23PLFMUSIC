@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\InscriptionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 class Inscription
 {
@@ -15,6 +15,7 @@ class Inscription
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+
     private ?\DateTimeInterface $dateInscription = null;
 
     #[ORM\ManyToOne(inversedBy: 'inscriptions')]
