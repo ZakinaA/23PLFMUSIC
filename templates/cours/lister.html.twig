@@ -12,33 +12,41 @@
                 <div  class="container-fluid pt-4 px-4">
                 <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">LISTE DES COURS</h6>
+                        {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
                         <form action="{{ path('coursAjouter') }}" method="get">
                                 <button type="submit" class="btn btn-primary">Ajouter un nouveau cours</button>
                         </form>
+                        {% endif %}
+
+
                         <div class="table-responsive">
         <table class="table">
+                <tr>
+                        <th scope="col" style="text-align: center;">Instrument</th>
+                        <th scope="col" style="text-align: center;">Jour</th>
+                        <th scope="col" style="text-align: center;">Heure de début</th>
+                        <th scope="col" style="text-align: center;">Heure de fin</th>
+                        <th scope="col" style="text-align: center;">Nombre de places</th>
+                        <th scope="col" style="text-align: center;">Age minimum</th>
+                        <th scope="col" style="text-align: center;">Age maximum</th>
+                        <th scope="col" style="text-align: center;">Type de cours</th>
+
+                        <th scope="col">Consulter</th>
+                        {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
+                                <th scope="col">Modifier</th>
+                                <th scope="col">Supprimer</th>
+                        {% endif %}
+
+                </tr>
         {% for typeInstrument, coursGroupes in groupesCours %}
 
 
-                        <tr>
-                                <th scope="col" style="text-align: center;">Instrument</th>
-                                <th scope="col" style="text-align: center;">Jour</th>
-                                <th scope="col" style="text-align: center;">Heure de début</th>
-                                <th scope="col" style="text-align: center;">Heure de fin</th>
-                                <th scope="col" style="text-align: center;">Nombre de places</th>
-                                <th scope="col" style="text-align: center;">Age minimum</th>
-                                <th scope="col" style="text-align: center;">Age maximum</th>
-                                <th scope="col" style="text-align: center;">Type de cours</th>
-                                <th scope="col">Consulter</th>
-                                <th scope="col">Modifier</th>
-                                <th scope="col">Supprimer</th>
 
-                        </tr>
 
                         {% for c in coursGroupes %}
                                 <tr>
                                         {% if loop.first %}
-                                                <td style="text-align: center;" rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
+                                                <td style="text-align: center;"  rowspan="{{ coursGroupes|length }}">{{ c.typeInstrument.libelle }}</td>
                                         {% endif %}
                                         <td scope="row">{{ c.jour.libelle }}</td>
                                         <td style="text-align: center;">{{ c.heureDebut | date('H:i') }}</td>
@@ -53,6 +61,7 @@
                                                         <button type="submit" class="btn btn-outline-primary">Consulter</button>
                                                 </form>
                                         </td>
+                                        {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
                                         <td>
                                                 <form action="{{ path('coursModifier', {'id': c.id}) }}" method="post">
                                                         <input type="hidden" name="_method" value="UPDATE">
@@ -65,7 +74,7 @@
                                                         <button type="submit" class="btn btn-outline-primary" >Supprimer</button>
                                                 </form>
                                         </td>
-
+                                        {% endif %}
 
                                 </tr>
                         {% endfor %}

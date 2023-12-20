@@ -113,12 +113,12 @@ class Intervention
         return $this;
     }
 
-    public function getInstrument(): ?instrument
+    public function getInstrument(): ?Instrument
     {
         return $this->instrument;
     }
 
-    public function setInstrument(?instrument $instrument): static
+    public function setInstrument(?Instrument $instrument): static
     {
         $this->instrument = $instrument;
 

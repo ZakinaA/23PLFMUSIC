@@ -17,6 +17,16 @@
         <tr><td>E-mail: </td><td>{{responsable.mail}}</td></tr>
 
         <tr><td>Telephone : </td><td>{{responsable.tel}}</td></tr>
+
+        <tr><td>Eleves : </td>
+            <td>
+                {% for eleve in responsable.eleves %}
+                    {{ eleve.prenom ~ " " ~ eleve.nom }}
+                {% else %}
+                    Pas d'eleve
+                {% endfor %}
+            </td></tr>
+
     </table>
 
         </div>

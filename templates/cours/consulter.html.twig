@@ -9,15 +9,20 @@
     <h6 class="mb-4">PAGE DE CONSULTATION D'UN COURS</h6>
 
     <table class="table table-borderless">
-        <tr><td>Id : </td><td>{{cours.id}} </td></tr>
 
-        <tr><td>Libelle : </td><td>{{cours.libelle}}</td>
+        <tr><td>Libelle : {{cours.libelle}}</td>
 
-        <tr><td>Instrument appris : </td><td>{{cours.typeInstrument.libelle}}</td>
+        <tr><td>Instrument appris :{{cours.typeInstrument.libelle}}</td>
 
-        <tr><td>Nom du professeur : </td><td>{{cours.professeur.nom}}</td></tr>
+        <tr><td>Nom du professeur : {{cours.professeur.nom}}</td></tr>
 
-        <tr><td>Prenom du professeur : </td><td>{{cours.professeur.prenom}}</td></tr>
+        <tr><td>Prenom du professeur : {{cours.professeur.prenom}}</td></tr>
+
+        <tr><td>Jour : {{ cours.jour.libelle }}</td></tr>
+
+        <tr><td>Heure début : {{ cours.heureDebut|date("h:i") }}</td></tr>
+
+        <tr><td>Heure fin : {{ cours.heureFin|date("h:i") }}</td></tr>
     </table>
 
     <h6 class="mb-4">ÉLÈVES INSCRITS </h6>
