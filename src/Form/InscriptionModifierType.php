@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,7 @@ class InscriptionModifierType extends AbstractType
     {
 
             $builder
-                ->add('dateInscription', DateTimeType::class, ["attr" => ["class" => "form-select"]])
+                ->add('dateInscription', DateType::class,  [ 'widget'=>'single_text','format' => 'yyyy-MM-dd' , "attr" => ["class" => "form-select"]])
                 ->add('eleve', EntityType::class, [
                     'class' => 'App\Entity\Eleve',
                     'choice_label' => 'nom',
@@ -29,15 +30,11 @@ class InscriptionModifierType extends AbstractType
                 ])
                 ->add('cours', EntityType::class, [
                     'class' => 'App\Entity\Cours',
-                    'choice_label' => 'libelle',
-                    "attr" => ["class" => "form-select"],
-                    //'multiple' => true,
-                    /*
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('r')
-                            ->orderBy('r.prenom', 'ASC');
+                    'choice_label' => function ($inscrit){
+                        return $inscrit->getTypeCours()->getLibelle().'  '.$inscrit->getJour()->getLibelle().'  '.$inscrit->getTypeInstrument()->getLibelle();
                     },
-                    */
+                    "attr" => ["class" => "form-select"],
+
                 ])
                 ->add('enregistrer', SubmitType::class, ['label' => 'Modifier Inscription ', "attr" => ["class" => "btn btn-primary"]]);
         ;

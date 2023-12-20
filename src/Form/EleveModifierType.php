@@ -21,11 +21,11 @@ class EleveModifierType extends AbstractType
             ->add('nom', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('prenom', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('numRue', NumberType::class , ["attr" => ["class" => "form-control"]])
+            ->add('rue', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('copos', NumberType::class , ["attr" => ["class" => "form-control"]])
             ->add('ville', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('tel', NumberType::class , ["attr" => ["class" => "form-control"]])
             ->add('mail', TextType::class , ["attr" => ["class" => "form-control"]])
-            ->add('rue', TextType::class , ["attr" => ["class" => "form-control"]])
             ->add('responsables', EntityType::class, [
                 'class' => 'App\Entity\Responsable',
                 'choice_label' => function ($responsable) {
