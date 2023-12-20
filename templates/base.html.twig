@@ -110,9 +110,9 @@
                     </div>
                 </div>
 
-                <a href="{{ path("listerInstrument") }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Instrument</a>
+
                 <a href="{{ path("intervention") }}" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Intervention</a>
-                <a href="{{ path("accessoireLister") }}" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Accessoires</a>
+
                 {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path("app_register") }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Register</a>
                 {% endif %}

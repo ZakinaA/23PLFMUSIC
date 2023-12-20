@@ -60,7 +60,7 @@ class InstrumentController extends AbstractController
 
     #[Route('/instrument/consulter/{id}', name: 'app_instrument')]
     #[ParamConverter('instrument', class: 'App\Entity\Instrument')]
-    public function consulter(ManagerRegistry $doctrine, int $id)
+    public function consulterInstrument(ManagerRegistry $doctrine, int $id)
     {
 
         $instruments = $doctrine->getRepository(Instrument::class)->find($id);

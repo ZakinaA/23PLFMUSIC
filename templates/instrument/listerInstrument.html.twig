@@ -30,8 +30,10 @@
                             <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'utilisation', 'order': (sortField == 'utilisation' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Utilisation </a> </th>
                             <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'marque', 'order': (sortField == 'marque' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Marque</a></th>
                             <th scope="col" style="text-align: center;"><a href="{{ path('listerInstrument', {'sort': 'typeInstrument', 'order': (sortField == 'typeInstrument' and sortOrder == 'asc' ? 'desc' : 'asc')}) }}">Type</a></th>
+                            {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
                             <th scope="col">Consulter</th>
                             <th scope="col">Modifier</th>
+                            {% endif %}
                         </tr>
 
 
@@ -52,12 +54,14 @@
                                         <button type="submit" class="btn btn-outline-primary">Consulter</button>
                                     </form>
                                 </td>
+                                {% if is_granted('ROLE_GEST') or is_granted('ROLE_ADMIN') %}
                                 <td>
                                     <form action="{{ path('instrumentModifier', {'id': instruments.id}) }}" method="post">
                                         <input type="hidden" name="_method" value="UPDATE">
                                         <button type="submit" class="btn btn-outline-primary">Modifier</button>
                                     </form>
                                 </td>
+                                {% endif %}
 
 
 
